@@ -52,6 +52,12 @@ const Navbar = () => {
                   <Link to="/hr/employees" className="btn btn-ghost">
                     Employees
                   </Link>
+                  <Link to="/hr/packages" className="btn btn-ghost">
+                    Packages
+                  </Link>
+                  <Link to="/hr/payments" className="btn btn-ghost">
+                    Billing
+                  </Link>
                 </>
               ) : (
                 <>
@@ -97,5 +103,5 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 export default Navbar;
