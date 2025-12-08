@@ -8,6 +8,8 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import Assets from "../pages/dashboard/HR/Assets";
 import Requests from "../pages/dashboard/HR/Requests";
+import RequestAsset from "../pages/dashboard/Employee/RequestAsset";
+import MyAssets from "../pages/dashboard/Employee/MyAssets";
 
 // Note: lazy() imports can be used for big apps. Keep simple for now.
 
@@ -25,8 +27,8 @@ const routes = [
         path: "/",
         element: <ProtectedRoute allowedRoles={["employee", "hr"]} />,
         children: [
-          { path: "my-assets", element: <h1>My Assets</h1> },
-          { path: "request-asset", element: <h1>request assets</h1> },
+          { path: "my-assets", element: <MyAssets/> },
+          { path: "request-asset", element: <RequestAsset/> },
         ],
       },
 

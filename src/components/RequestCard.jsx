@@ -1,6 +1,5 @@
-// src/components/RequestCard.jsx
 import React, { useState } from "react";
-import api from "../../services/api";
+import api from "../services/api";
 
 const RequestCard = ({ asset, onClose, onRequested }) => {
   const [note, setNote] = useState("");
