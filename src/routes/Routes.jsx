@@ -10,6 +10,8 @@ import Assets from "../pages/dashboard/HR/Assets";
 import Requests from "../pages/dashboard/HR/Requests";
 import RequestAsset from "../pages/dashboard/Employee/RequestAsset";
 import MyAssets from "../pages/dashboard/Employee/MyAssets";
+import { path } from "framer-motion/client";
+import EmployeeList from "../pages/dashboard/HR/EmployeeList";
 
 // Note: lazy() imports can be used for big apps. Keep simple for now.
 
@@ -39,6 +41,7 @@ const routes = [
         children: [
           { path: "assets", element: <Assets/> },
           { path: "requests", element: <Requests/> },
+          {path: "employees", element: <EmployeeList/>},
         ],
       },
 
@@ -47,7 +50,6 @@ const routes = [
   },
 ];
 
-// createBrowserRouter consumes the same route object
 const router = createBrowserRouter(routes);
 
 export default router;
