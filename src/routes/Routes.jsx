@@ -5,6 +5,7 @@ import NavbarLayout from "../components/NavbarLayout";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
 
 // Note: lazy() imports can be used for big apps. Keep simple for now.
 
@@ -15,7 +16,7 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
-      { path: "register", element: <h1>register</h1> },
+      { path: "register", element: <Register/> },
 
       // Employee routes (requires employee or hr)
       {
