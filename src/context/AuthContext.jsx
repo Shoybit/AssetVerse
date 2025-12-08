@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (payload) => {
-    const res = await api.post('/auth/register', payload);
+    const res = await api.post('/register', payload);
     const { token, user: u } = res.data;
     setToken(token);
     setUser(u);
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
   };
 
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password });
+    const res = await api.post('/login', { email, password });
     const { token, user: u } = res.data;
     setToken(token);
     setUser(u);
