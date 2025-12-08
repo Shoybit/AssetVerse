@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router';
 import ProtectedRoute from '../routes/PrivateRoute';
 import Navbar from '../components/Navbar';
+import NavbarLayout from '../components/NavbarLayout';
 
 // Note: lazy() imports can be used for big apps. Keep simple for now.
 
 const routes = [
   {
     path: '/',
-    element: <Navbar/>, // renders Navbar + outlet
+    element: <NavbarLayout/>, // renders Navbar + outlet
     children: [
       { index: true, element: <h1>Home</h1> },
       { path: 'login', element: <h1>Login</h1> },

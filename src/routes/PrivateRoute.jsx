@@ -1,10 +1,11 @@
 import { Navigate, Outlet } from 'react-router';
+// import AuthContext from '../context/AuthContext';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 
 export default function ProtectedRoute({ allowedRoles = [] }) {
-const user = {
-    name: "ss",
-    role: "hr"
-}
+  const { user } = useContext(AuthContext);
+
 
 
   if (!user) {

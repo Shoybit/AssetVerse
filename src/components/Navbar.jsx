@@ -1,60 +1,80 @@
+/* eslint-disable no-unused-vars */
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { motion } from 'framer-motion';
+import AuthContext from '../context/AuthContext';
 
-export default function Navbar() {
- const user = {
-    name: "ss",
-    role: "hr"
- }
-
+const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
   const nav = useNavigate();
 
-  const doLogout = () => {
+  const onLogout = () => {
+    logout();
     nav('/');
   };
 
   return (
-    <div className="navbar bg-base-200 shadow">
-      <div className="container mx-auto">
-        <div className="flex-1">
-          <Link to="/" className="btn btn-ghost normal-case text-xl">AssetVerse</Link>
+    <motion.header
+      initial={{ y: -10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.25 }}
+      className="bg-white border-b"
+    >
+      <div className="container mx-auto flex items-center justify-between gap-4 py-3 px-4">
+        <div className="flex items-center gap-4">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-linear-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold shadow">
+              AV
+            </div>
+            <div className="hidden md:block">
+              <div className="text-lg font-semibold text-slate-800">AssetVerse</div>
+              <div className="text-sm text-slate-500">Corporate Asset Management</div>
+            </div>
+          </Link>
         </div>
 
-        <div className="flex-none gap-2">
+        <div className="flex-1 hidden md:flex justify-center px-4">
+          <div className="w-full max-w-2xl">
+            <div className="relative">
+              <input
+                aria-label="Search assets"
+                className="input input-bordered w-full rounded-full pr-12"
+                placeholder="Search assets, employees, companies..."
+              />
+              <button className="btn btn-ghost absolute right-1 top-1/2 -translate-y-1/2">
+                🔎
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Link to="/notifications" className="btn btn-ghost btn-circle">
+            🔔
+          </Link>
+
           {!user ? (
             <>
               <Link to="/login" className="btn btn-ghost">Login</Link>
-              <Link to="/register" className="btn btn-primary">Register</Link>
+              <Link to="/register" className="btn btn-primary">Get Started</Link>
             </>
           ) : (
-            <>
-              {user.role === 'hr' ? (
-                <>
-                  <Link to="/hr/assets" className="btn btn-ghost">Assets</Link>
-                  <Link to="/hr/requests" className="btn btn-ghost">Requests</Link>
-                </>
-              ) : (
-                <>
-                  <Link to="/my-assets" className="btn btn-ghost">My Assets</Link>
-                  <Link to="/request-asset" className="btn btn-ghost">Request Asset</Link>
-                </>
-              )}
-
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <div className="w-8 rounded-full bg-neutral-focus text-white flex items-center justify-center">
-                    {user.name ? user.name[0].toUpperCase() : 'U'}
-                  </div>
-                </label>
-                <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                  <li><span className="font-medium">{user.name}</span></li>
-                  <li><span className="text-xs">{user.email}</span></li>
-                  <li><button onClick={doLogout}>Logout</button></li>
-                </ul>
-              </div>
-            </>
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <div className="w-9 rounded-full bg-slate-600 text-white flex items-center justify-center">
+                  {user.name ? user.name[0].toUpperCase() : 'U'}
+                </div>
+              </label>
+              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52">
+                <li><div className="font-medium">{user.name}</div></li>
+                <li><Link to="/profile">Profile</Link></li>
+                <li><button onClick={onLogout}>Logout</button></li>
+              </ul>
+            </div>
           )}
         </div>
       </div>
-    </div>
+    </motion.header>
   );
 }
+export default Navbar
