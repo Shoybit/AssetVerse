@@ -105,7 +105,7 @@ export default function HeroBanner() {
             transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
             className="w-full lg:w-1/2 mt-12 lg:mt-0 order-first lg:order-last"
           >
-            <div className="relative max-w-xl mx-auto">
+            <div className="relative max-w-[650px] mx-auto">
               {/* Main Image Container */}
               <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <motion.img

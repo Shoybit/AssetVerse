@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-base-100 shadow-md sticky top-0 z-50">
-      <div className="max-w-10/12 mx-auto px-4 lg:px-6 h-16 flex items-center">
+      <div className="max-w-10/12 mx-auto h-16 flex items-center">
 
         {/*LEFT: Logo */}
         <div className="flex items-center">
@@ -61,7 +61,7 @@ export default function Navbar() {
           </div>
 
           {/*  Professional Logo */}
-          <Link to="/" className="text-2xl -ml-2.5 font-bold tracking-wide">
+          <Link to="/" className="text-2xl p-2 font-bold tracking-wide">
             Asset<span className="text-primary">Verse</span>
           </Link>
         </div>
@@ -71,7 +71,7 @@ export default function Navbar() {
 
           {/* Public Desktop Links */}
           {!user && (
-            <ul className="menu menu-horizontal mr-3 gap-3 ">
+            <ul className="menu menu-horizontal gap-3 ">
               <li><NavLink to="/" className={activeClass}>Home</NavLink></li>
               <li><NavLink to="/register-employee" className={activeClass}>Join as Employee</NavLink></li>
               <li><NavLink to="/register-hr" className={activeClass}>Join as HR Manager</NavLink></li>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Link } from "react-router";
 import HeroBanner from "../components/HeroBanner";
+import AboutSection from "../components/AboutSection";
 
 export default function Home() {
   const [packages, setPackages] = useState([]);
@@ -30,6 +31,7 @@ export default function Home() {
 
     <>
     <HeroBanner></HeroBanner>
+    <AboutSection></AboutSection>
    
     <div className="py-12">
       <div className="max-w-5xl mx-auto text-center px-4">
