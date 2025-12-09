@@ -1,57 +1,69 @@
+// src/routes/routes.jsx
+import React from "react";
 import { createBrowserRouter } from "react-router";
-import ProtectedRoute from "../routes/PrivateRoute";
-import Navbar from "../components/Navbar";
+
+import PrivateRoute from "../routes/PrivateRoute";
 import NavbarLayout from "../components/NavbarLayout";
 import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/auth/Login";
-import Register from "../pages/auth/Register";
+
 import Assets from "../pages/dashboard/HR/Assets";
 import Requests from "../pages/dashboard/HR/Requests";
-import RequestAsset from "../pages/dashboard/Employee/RequestAsset";
-import MyAssets from "../pages/dashboard/Employee/MyAssets";
-import { path } from "framer-motion/client";
 import EmployeeList from "../pages/dashboard/HR/EmployeeList";
-import Packages from "../pages/Payments/Packages";
-import PaymentHistory from "../pages/Payments/PaymentHistory";
 import HRDashboard from "../pages/dashboard/HR/HRDashboard";
 
-// Note: lazy() imports can be used for big apps. Keep simple for now.
+import RequestAsset from "../pages/dashboard/Employee/RequestAsset";
+import MyAssets from "../pages/dashboard/Employee/MyAssets";
+
+import Packages from "../pages/Payments/Packages";
+import PaymentHistory from "../pages/Payments/PaymentHistory";
+import RegisterHR from "../pages/auth/RegisterHR";
+import RegisterEmployee from "../pages/auth/RegisterEmployee";
+
+/**
+ * Routes:
+ * - Root layout is NavbarLayout
+ * - PrivateRoute is used as element for nested protected groups (it renders an <Outlet/>)
+ * - Paths are relative when nested (no leading slashes in children)
+ */
 
 const routes = [
   {
     path: "/",
-    element: <NavbarLayout />, // renders Navbar + outlet
+    element: <NavbarLayout />,
     children: [
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
-      { path: "register", element: <Register /> },
 
-      // Employee routes (requires employee or hr)
+      // Separate register pages for Employee and HR
+      { path: "register-employee", element: <RegisterEmployee /> },
+      { path: "register-hr", element: <RegisterHR /> },
+
+      // Employee & HR can access these routes (PrivateRoute checks allowedRoles)
       {
-        path: "/",
-        element: <ProtectedRoute allowedRoles={["employee", "hr"]} />,
+        element: <PrivateRoute allowedRoles={["employee", "hr"]} />,
         children: [
           { path: "my-assets", element: <MyAssets /> },
           { path: "request-asset", element: <RequestAsset /> },
         ],
       },
 
-      // HR routes (requires hr)
+      // HR-only protected subtree
       {
-        path: "/hr",
-        element: <ProtectedRoute allowedRoles={["hr"]} />,
+        path: "hr",
+        element: <PrivateRoute allowedRoles={["hr"]} />,
         children: [
           { path: "assets", element: <Assets /> },
           { path: "requests", element: <Requests /> },
           { path: "employees", element: <EmployeeList /> },
+          { path: "packages", element: <Packages /> },
+          { path: "payments", element: <PaymentHistory /> },
+          { path: "dashboard", element: <HRDashboard /> },
         ],
       },
-      // HR pages
-      { path: "/hr/packages", element: <Packages /> },
-      { path: "/hr/payments", element: <PaymentHistory /> },
-      { path: '/hr/dashboard', element: <HRDashboard /> },
 
+      // Fallback 404
       { path: "*", element: <NotFound /> },
     ],
   },

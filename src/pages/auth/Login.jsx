@@ -1,7 +1,9 @@
+// src/pages/auth/Login.jsx
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
-import { useNavigate, Link } from "react-router"; 
+import { useNavigate, Link } from "react-router"; // <-- fixed import
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const {
@@ -17,9 +19,23 @@ const Login = () => {
     setServerError(null);
     setLoading(true);
     try {
+      // login() from AuthContext returns res.data (usually { token, user })
       const res = await login(data.email, data.password);
-      // redirect based on role
-      const role = res.user?.role || res?.user?.role;
+
+      // normalize possible shapes:
+      // - { token, user }
+      // - { user }
+      // - user (if login directly returned user)
+      const possibleUser = (res && (res.user || res.data)) || res;
+      const role = possibleUser?.role || (res && res.role);
+
+      // if no role found, try to read from AuthContext (login should have set it)
+      if (!role) {
+        // fallback: navigate to home
+        nav("/");
+        return;
+      }
+
       if (role === "hr") nav("/hr/assets");
       else nav("/my-assets");
     } catch (err) {
@@ -89,7 +105,7 @@ const Login = () => {
             </div>
 
             <div className="flex items-center justify-between">
-              <Link to="/register" className="link">
+              <Link to="/register-employee" className="link">
                 Create an account
               </Link>
               <button
