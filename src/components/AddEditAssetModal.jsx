@@ -1,179 +1,103 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import api from "../services/api";
+// src/components/AssetModal.jsx
+import React, { useEffect, useState } from 'react';
+import api from '../services/api';
+import { toast } from 'react-toastify';
 
-/**
- * initialData: asset object when editing, null when adding
- * onSaved(savedAsset, mode) -> mode: 'add'|'edit'
- */
-const AddEditAssetModal = ({ initialData = null, onClose, onSaved }) => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm();
-  const [serverError, setServerError] = useState(null);
+export default function AssetModal({ asset = null, onClose, onSaved }) {
+  const [form, setForm] = useState({
+    productName: '',
+    productType: 'Returnable',
+    productQuantity: 1,
+    availableQuantity: 1,
+    productImage: '',
+    companyName: '',
+  });
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (initialData) {
-      setValue("productName", initialData.productName);
-      setValue("productImage", initialData.productImage || "");
-      setValue("productType", initialData.productType);
-      setValue("productQuantity", initialData.productQuantity);
-      setValue("companyName", initialData.companyName || "");
-    } else {
-      // default
-      setValue("productType", "Returnable");
-      setValue("productQuantity", 1);
+    if (asset) {
+      setForm({
+        productName: asset.productName || '',
+        productType: asset.productType || 'Returnable',
+        productQuantity: asset.productQuantity || 1,
+        availableQuantity: asset.availableQuantity ?? asset.productQuantity ?? 1,
+        productImage: asset.productImage || '',
+        companyName: asset.companyName || '',
+      });
     }
-  }, [initialData, setValue]);
+  }, [asset]);
 
-  // inside AddEditAssetModal.jsx — replace the onSubmit function with this
+  const handleChange = (k, v) => setForm(s => ({ ...s, [k]: v }));
 
-  const onSubmit = async (data) => {
-    setServerError(null);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSaving(true);
     try {
-      if (initialData) {
-        // edit
-        const res = await api.put(`/assets/${initialData._id}`, {
-          productName: data.productName,
-          productImage: data.productImage || null,
-          productType: data.productType,
-          productQuantity: Number(data.productQuantity),
-          companyName: data.companyName || null,
-        });
-
-        // Normalize various possible response shapes
-        const savedAsset =
-          (res && res.data && res.data.asset) ||
-          (res && res.data && res.data.value) || // some servers return { value: ... }
-          (res && res.data) || // fallback to whole body
-          null;
-
-        if (!savedAsset) {
-          // If nothing useful returned, call onSaved with null (caller should refetch)
-          onSaved(null, "edit");
-        } else {
-          onSaved(savedAsset, "edit");
-        }
+      if (asset && asset._id) {
+        await api.put(`/assets/${asset._id}`, { ...form });
+        toast.success('Asset updated');
       } else {
-        // create
-        const res = await api.post("/assets", {
-          productName: data.productName,
-          productImage: data.productImage || null,
-          productType: data.productType,
-          productQuantity: Number(data.productQuantity),
-          companyName: data.companyName || null,
-        });
-
-        const savedAsset =
-          (res && res.data && res.data.asset) || (res && res.data) || null;
-
-        if (!savedAsset) {
-          onSaved(null, "add");
-        } else {
-          onSaved(savedAsset, "add");
-        }
+        await api.post('/assets', { ...form });
+        toast.success('Asset created');
       }
+      onSaved && onSaved();
     } catch (err) {
-      console.error("Save asset error", err);
-      setServerError(err.response?.data?.message || "Failed to save asset");
+      console.error('Save asset error', err);
+      toast.error(err?.response?.data?.message || 'Save failed');
+    } finally {
+      setSaving(false);
     }
   };
 
+  // basic image preview uploader helper (uses direct URL input for now)
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-lg">
-        <div className="card">
-          <div className="card-body">
-            <h3 className="text-xl font-semibold mb-2">
-              {initialData ? "Edit Asset" : "Add Asset"}
-            </h3>
-
-            {serverError && (
-              <div className="alert alert-error mb-3">{serverError}</div>
-            )}
-
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-              <div>
-                <label className="label">
-                  <span className="label-text">Product name</span>
-                </label>
-                <input
-                  {...register("productName", { required: "Required" })}
-                  className={`input input-bordered w-full ${
-                    errors.productName ? "input-error" : ""
-                  }`}
-                />
-              </div>
-
-              <div>
-                <label className="label">
-                  <span className="label-text">Image URL (optional)</span>
-                </label>
-                <input
-                  {...register("productImage")}
-                  className="input input-bordered w-full"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="label">
-                    <span className="label-text">Type</span>
-                  </label>
-                  <select
-                    {...register("productType")}
-                    className="select select-bordered w-full"
-                  >
-                    <option value="Returnable">Returnable</option>
-                    <option value="Non-returnable">Non-returnable</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="label">
-                    <span className="label-text">Quantity</span>
-                  </label>
-                  <input
-                    {...register("productQuantity", { required: true, min: 0 })}
-                    type="number"
-                    className="input input-bordered w-full"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="label">
-                  <span className="label-text">Company name (optional)</span>
-                </label>
-                <input
-                  {...register("companyName")}
-                  className="input input-bordered w-full"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-2 mt-2">
-                <button
-                  type="button"
-                  className="btn btn-ghost"
-                  onClick={onClose}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className={`btn btn-primary ${isSubmitting ? "loading" : ""}`}
-                  disabled={isSubmitting}
-                >
-                  {initialData ? "Save changes" : "Add asset"}
-                </button>
-              </div>
-            </form>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="bg-base-100 rounded-lg w-full max-w-xl shadow-lg overflow-auto">
+        <form onSubmit={handleSubmit}>
+          <div className="p-4 border-b">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">{asset ? 'Edit asset' : 'Create asset'}</h3>
+              <button type="button" className="btn btn-ghost" onClick={onClose}>Close</button>
+            </div>
           </div>
-        </div>
+
+          <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="label"><span className="label-text">Name</span></label>
+              <input value={form.productName} onChange={(e)=>handleChange('productName', e.target.value)} className="input input-bordered w-full" required />
+            </div>
+
+            <div>
+              <label className="label"><span className="label-text">Type</span></label>
+              <select value={form.productType} onChange={(e)=>handleChange('productType', e.target.value)} className="select select-bordered w-full">
+                <option value="Returnable">Returnable</option>
+                <option value="Non-returnable">Non-returnable</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="label"><span className="label-text">Quantity</span></label>
+              <input type="number" min={0} value={form.productQuantity} onChange={(e)=>{ handleChange('productQuantity', Number(e.target.value)); handleChange('availableQuantity', Number(e.target.value)); }} className="input input-bordered w-full" />
+            </div>
+
+            <div>
+              <label className="label"><span className="label-text">Company</span></label>
+              <input value={form.companyName} onChange={(e)=>handleChange('companyName', e.target.value)} className="input input-bordered w-full" />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="label"><span className="label-text">Image URL (or upload later)</span></label>
+              <input value={form.productImage} onChange={(e)=>handleChange('productImage', e.target.value)} className="input input-bordered w-full" placeholder="https://..." />
+              {form.productImage && <img src={form.productImage} alt="preview" className="mt-3 h-32 object-contain" />}
+            </div>
+          </div>
+
+          <div className="p-4 border-t flex justify-end gap-2">
+            <button type="button" className="btn btn-ghost" onClick={onClose} disabled={saving}>Cancel</button>
+            <button type="submit" className={`btn btn-primary ${saving ? 'loading' : ''}`} disabled={saving}>{saving ? 'Saving...' : (asset ? 'Save changes' : 'Create asset')}</button>
+          </div>
+        </form>
       </div>
     </div>
   );
-};
-export default AddEditAssetModal;
+}

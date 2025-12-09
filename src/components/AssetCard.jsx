@@ -1,34 +1,40 @@
 import React from "react";
 
-const AssetCard = ({ asset, onEdit, onDelete }) => {
+export default function AssetCardFancy({ asset, onEdit, onDelete }) {
+  const qty = asset.availableQuantity ?? asset.productQuantity ?? 0;
   return (
-    <div className="card shadow hover:shadow-lg transition">
-      <figure className="h-40 bg-gray-100 flex items-center justify-center">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden border">
+      <div className="h-44 bg-gray-50 flex items-center justify-center">
         {asset.productImage ? (
-          // keep image aspect ratio constrained
           <img
             src={asset.productImage}
             alt={asset.productName}
-            className="h-full object-contain"
+            className="object-contain h-full"
           />
         ) : (
-          <div className="text-sm text-neutral">No image</div>
+          <div className="text-neutral">No image</div>
         )}
-      </figure>
-      <div className="card-body p-4">
-        <h3 className="font-medium">{asset.productName}</h3>
-        <p className="text-sm text-neutral">{asset.productType}</p>
-        <div className="mt-2 text-sm">
-          <span className="mr-3">
-            Available: <strong>{asset.availableQuantity ?? 0}</strong>
-          </span>
-          <span>
-            Total: <strong>{asset.productQuantity ?? 0}</strong>
-          </span>
+      </div>
+
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h3 className="font-semibold text-lg">{asset.productName}</h3>
+            <div className="text-sm text-neutral">
+              {asset.companyName || "—"}
+            </div>
+            <div className="mt-2 text-xs badge badge-outline">
+              {asset.productType || "—"}
+            </div>
+          </div>
+          <div className="text-right">
+            <div className="text-xl font-bold">{qty}</div>
+            <div className="text-xs text-neutral">available</div>
+          </div>
         </div>
 
-        <div className="card-actions mt-4">
-          <button className="btn btn-sm btn-outline" onClick={onEdit}>
+        <div className="mt-4 flex items-center justify-between gap-2">
+          <button className="btn btn-sm btn-ghost" onClick={onEdit}>
             Edit
           </button>
           <button className="btn btn-sm btn-error" onClick={onDelete}>
@@ -38,5 +44,4 @@ const AssetCard = ({ asset, onEdit, onDelete }) => {
       </div>
     </div>
   );
-};
-export default AssetCard;
+}
