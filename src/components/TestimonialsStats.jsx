@@ -125,6 +125,68 @@ export default function TestimonialsStats() {
           </div>
         </motion.div>
 
+        {/* TESTIMONIALS SECTION */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Loved by
+              <span className="block bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Teams Worldwide
+              </span>
+            </h2>
+            
+            <p className="text-lg text-base-content/70 leading-relaxed">
+              Join thousands of satisfied customers who have transformed their asset management with AssetVerse.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <div className="h-full bg-base-100 rounded-2xl p-6 border border-base-300 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
+                  <div className="mb-4">
+                    <FaQuoteLeft className="w-6 h-6 text-primary/50 group-hover:text-primary transition-colors" />
+                  </div>
+                  
+                  <p className="text-base-content/80 mb-6 italic leading-relaxed">
+                    "{testimonial.feedback}"
+                  </p>
+                  
+                  {/* Rating Stars */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <FaStar key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                    ))}
+                  </div>
+                  
+                  {/* Profile */}
+                  <div className="flex items-center gap-3 mt-auto pt-4 border-t border-base-200">
+                    <div className={`w-12 h-12 rounded-full ${testimonial.avatarColor} text-white flex items-center justify-center font-bold text-lg`}>
+                      {testimonial.name.charAt(0)}
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-sm">{testimonial.name}</div>
+                      <div className="text-xs text-base-content/70">{testimonial.role}</div>
+                      <div className="text-xs text-primary font-medium mt-1">{testimonial.company}</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
 
       </div>
