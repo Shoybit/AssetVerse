@@ -1,4 +1,4 @@
-// src/pages/auth/RegisterHR.jsx
+/* eslint-disable no-unused-vars */
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
