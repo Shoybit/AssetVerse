@@ -2,6 +2,7 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 export default function NavbarLayout() {
   return (
@@ -10,6 +11,7 @@ export default function NavbarLayout() {
       <main className="container mx-auto p-4">
         <Outlet />
       </main>
+      <Footer></Footer>
     </div>
   );
 }

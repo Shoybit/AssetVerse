@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-base-100 shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 h-16 flex items-center">
+      <div className="max-w-10/12 mx-auto px-4 lg:px-6 h-16 flex items-center">
 
         {/*LEFT: Logo */}
         <div className="flex items-center">
