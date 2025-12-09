@@ -1,7 +1,7 @@
-// src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Link } from "react-router";
+import HeroBanner from "../components/HeroBanner";
 
 export default function Home() {
   const [packages, setPackages] = useState([]);
@@ -27,6 +27,10 @@ export default function Home() {
   }, []);
 
   return (
+
+    <>
+    <HeroBanner></HeroBanner>
+   
     <div className="py-12">
       <div className="max-w-5xl mx-auto text-center px-4">
         <h1 className="text-5xl font-extrabold mb-4">AssetVerse</h1>
@@ -102,5 +106,6 @@ export default function Home() {
         </section>
       </div>
     </div>
+     </>
   );
 }

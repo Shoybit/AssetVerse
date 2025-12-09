@@ -61,7 +61,7 @@ export default function Navbar() {
           </div>
 
           {/*  Professional Logo */}
-          <Link to="/" className="text-2xl font-bold tracking-wide">
+          <Link to="/" className="text-2xl -ml-2.5 font-bold tracking-wide">
             Asset<span className="text-primary">Verse</span>
           </Link>
         </div>
@@ -71,7 +71,7 @@ export default function Navbar() {
 
           {/* Public Desktop Links */}
           {!user && (
-            <ul className="menu menu-horizontal gap-4">
+            <ul className="menu menu-horizontal mr-3 gap-3 ">
               <li><NavLink to="/" className={activeClass}>Home</NavLink></li>
               <li><NavLink to="/register-employee" className={activeClass}>Join as Employee</NavLink></li>
               <li><NavLink to="/register-hr" className={activeClass}>Join as HR Manager</NavLink></li>
