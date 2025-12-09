@@ -21,6 +21,8 @@ import MyAssets from "../pages/dashboard/Employee/MyAssets";
 
 import Packages from "../pages/Payments/Packages";
 import PaymentHistory from "../pages/Payments/PaymentHistory";
+import { path } from "framer-motion/client";
+import MyTeam from "../pages/dashboard/Employee/MyTeam";
 
 
 const routes = [
@@ -46,6 +48,7 @@ const routes = [
         children: [
           { path: "my-assets", element: <MyAssets /> },
           { path: "request-asset", element: <RequestAsset /> },
+          {path: "my-team", element: <MyTeam/> }
         ],
       },
 
