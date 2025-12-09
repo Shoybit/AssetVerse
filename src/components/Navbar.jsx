@@ -43,6 +43,10 @@ const Navbar = () => {
               {/* role-aware quick links */}
               {user.role === "hr" ? (
                 <>
+                  <Link to="/hr/dashboard" className="btn btn-ghost">
+                    Dashboard
+                  </Link>
+
                   <Link to="/hr/assets" className="btn btn-ghost">
                     Assets
                   </Link>

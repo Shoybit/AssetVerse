@@ -14,6 +14,7 @@ import { path } from "framer-motion/client";
 import EmployeeList from "../pages/dashboard/HR/EmployeeList";
 import Packages from "../pages/Payments/Packages";
 import PaymentHistory from "../pages/Payments/PaymentHistory";
+import HRDashboard from "../pages/dashboard/HR/HRDashboard";
 
 // Note: lazy() imports can be used for big apps. Keep simple for now.
 
@@ -49,6 +50,7 @@ const routes = [
       // HR pages
       { path: "/hr/packages", element: <Packages /> },
       { path: "/hr/payments", element: <PaymentHistory /> },
+      { path: '/hr/dashboard', element: <HRDashboard /> },
 
       { path: "*", element: <NotFound /> },
     ],
