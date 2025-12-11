@@ -15,8 +15,11 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
   const [imageInfo, setImageInfo] = useState(null);
   const fileRef = useRef(null);
 
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [saving, setSaving] = useState(false);
 
+  const IMGBB_KEY = imgbbKey || import.meta.env.VITE_IMGBB_KEY || "";
   const MAX_IMAGE_MB = 5;
   const MAX_IMAGE_BYTES = MAX_IMAGE_MB * 1024 * 1024;
 
@@ -31,18 +34,49 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
   const onDrop = (e) => { e.preventDefault(); e.stopPropagation(); const f = e.dataTransfer.files?.[0]; handleFile(f); };
   const onDragOver = (e) => { e.preventDefault(); e.stopPropagation(); };
 
+  function uploadToImgBBWithProgress(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) return resolve(null);
+      if (!IMGBB_KEY) return reject(new Error("No ImgBB API key configured."));
+      setUploading(true);
+      setUploadProgress(0);
+      const xhr = new XMLHttpRequest();
+      const url = `https://api.imgbb.com/1/upload?key=${IMGBB_KEY}`;
+      xhr.open("POST", url);
+      xhr.upload.onprogress = (event) => { if (event.lengthComputable) setUploadProgress(Math.round((event.loaded / event.total) * 100)); };
+      xhr.onload = () => {
+        setUploading(false);
+        setUploadProgress(100);
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const resp = JSON.parse(xhr.responseText);
+            const hosted = resp?.data?.url || resp?.data?.display_url || null;
+            if (!hosted) return reject(new Error("ImgBB returned no URL"));
+            resolve(hosted);
+          } catch (err) { reject(new Error("Invalid ImgBB response")); }
+        } else { reject(new Error(`ImgBB upload failed: ${xhr.status}`)); }
+      };
+      xhr.onerror = () => { setUploading(false); reject(new Error("Network error during ImgBB upload")); };
+      const fd = new FormData(); fd.append("image", file); xhr.send(fd);
+    });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!productName.trim()) { toast.error("Product name required"); return; }
     if (+productQuantity < 0) { toast.error("Quantity must be >=0"); return; }
     setSaving(true);
     try {
-      // image not uploaded yet — will be added in next commit
+      let imageUrl = "";
+      if (imageFile) {
+        toast.info("Uploading image...");
+        imageUrl = await uploadToImgBBWithProgress(imageFile);
+      }
       const payload = {
         productName: productName.trim(),
         productType,
         productQuantity: Number(productQuantity) || 0,
-        productImage: undefined,
+        productImage: imageUrl || undefined,
       };
       if (user && (user._id || user.id)) payload.addedBy = user._id || user.id;
       const res = await api.post("/assets", payload);
@@ -52,7 +86,7 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
       onSaved(saved);
       // reset
       setProductName(""); setProductType("Returnable"); setProductQuantity(1);
-      setImageFile(null); setPreviewUrl(""); setImageInfo(null);
+      setImageFile(null); setPreviewUrl(""); setImageInfo(null); setUploadProgress(0);
       if (fileRef.current) fileRef.current.value = "";
       onClose && onClose();
     } catch (err) {
@@ -60,6 +94,8 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
       toast.error(err?.message || "Save failed");
     } finally {
       setSaving(false);
+      setUploading(false);
+      setUploadProgress(0);
     }
   };
 
@@ -70,13 +106,13 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
 
         <div>
           <label className="block text-sm font-medium">Product Name *</label>
-          <input className="w-full px-3 py-2 border rounded" value={productName} onChange={(e)=>setProductName(e.target.value)} required disabled={saving} />
+          <input className="w-full px-3 py-2 border rounded" value={productName} onChange={(e)=>setProductName(e.target.value)} required disabled={saving || uploading} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div>
             <label className="block text-sm font-medium">Product Type</label>
-            <select className="w-full px-3 py-2 border rounded" value={productType} onChange={(e)=>setProductType(e.target.value)} disabled={saving}>
+            <select className="w-full px-3 py-2 border rounded" value={productType} onChange={(e)=>setProductType(e.target.value)} disabled={saving || uploading}>
               <option value="Returnable">Returnable</option>
               <option value="Non-returnable">Non-returnable</option>
             </select>
@@ -84,7 +120,7 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
 
           <div>
             <label className="block text-sm font-medium">Quantity</label>
-            <input type="number" min="0" className="w-full px-3 py-2 border rounded" value={productQuantity} onChange={(e)=>setProductQuantity(e.target.value)} disabled={saving} />
+            <input type="number" min="0" className="w-full px-3 py-2 border rounded" value={productQuantity} onChange={(e)=>setProductQuantity(e.target.value)} disabled={saving || uploading} />
           </div>
         </div>
 
@@ -94,12 +130,14 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
             {previewUrl ? <img src={previewUrl} alt="preview" className="mx-auto h-24 object-contain" /> : <div>Drag & drop or <button type="button" onClick={()=>fileRef.current?.click()} className="text-blue-600 underline">browse</button></div>}
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
           </div>
+
+          {uploading && <div className="mt-2 text-sm">Uploading image… {uploadProgress}%</div>}
           {imageInfo && <div className="text-xs text-gray-600 mt-2">{imageInfo.name} • {imageInfo.sizeKB} KB</div>}
         </div>
 
         <div className="flex justify-end gap-2">
-          <button type="button" className="btn btn-ghost" onClick={() => onClose && onClose()} disabled={saving}>Cancel</button>
-          <button type="submit" className={`btn btn-primary ${saving ? "loading" : ""}`} disabled={saving}>{saving ? "Saving..." : "Create Asset"}</button>
+          <button type="button" className="btn btn-ghost" onClick={() => onClose && onClose()} disabled={saving || uploading}>Cancel</button>
+          <button type="submit" className={`btn btn-primary ${saving || uploading ? "loading" : ""}`} disabled={saving || uploading}>{saving || uploading ? "Saving..." : "Create Asset"}</button>
         </div>
       </form>
     </div>
