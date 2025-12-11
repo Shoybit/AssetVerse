@@ -56,7 +56,7 @@ export default function AssetList() {
   const [assets, setAssets] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [rawResponse, setRawResponse] = useState(null);
+  const [, setRawResponse] = useState(null);
 
   // modal edit/create
   const [editing, setEditing] = useState(null);
@@ -216,7 +216,7 @@ const handleSaved = (saved) => {
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Asset Inventory</h1>
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Asset <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Inventory</span></h1>
               <p className="text-gray-600">Manage and organize your company assets efficiently</p>
             </div>
 

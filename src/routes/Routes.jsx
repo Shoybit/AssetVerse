@@ -1,4 +1,3 @@
-// src/routes/routes.jsx
 import React from "react";
 import { createBrowserRouter } from "react-router";
 
@@ -21,8 +20,8 @@ import MyAssets from "../pages/dashboard/Employee/MyAssets";
 
 import Packages from "../pages/Payments/Packages";
 import PaymentHistory from "../pages/Payments/PaymentHistory";
-import { path } from "framer-motion/client";
 import MyTeam from "../pages/dashboard/Employee/MyTeam";
+import AddAssetForm from "../components/AddAssetForm";
 
 
 const routes = [
@@ -63,6 +62,7 @@ const routes = [
           { path: "packages", element: <Packages /> },
           { path: "payments", element: <PaymentHistory /> },
           { path: "dashboard", element: <HRDashboard /> },
+          { path: "add-asset", element: <AddAssetForm /> },
         ],
       },
 
