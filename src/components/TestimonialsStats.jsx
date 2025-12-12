@@ -187,8 +187,6 @@ export default function TestimonialsStats() {
             ))}
           </div>
         </motion.div>
-
-
       </div>
     </section>
   );

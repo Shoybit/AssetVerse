@@ -3,14 +3,6 @@ import api from "../../services/api";
 import PackageCard from "../../components/PackageCard";
 import AuthContext from "../../context/AuthContext";
 
-/**
- * Packages page
- * - GET /api/packages
- * - POST /api/payments/checkout  (body: { packageId })
- * Opens returned URL in a new tab.
- *
- * Dev: simulate via /api/payments/simulate if you prefer (button below)
- */
 export default function Packages() {
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -43,20 +35,24 @@ export default function Packages() {
 
     setBuying(true);
     try {
-      const res = await api.post("/payments/checkout", { packageId: pkg._id });
-      // expected: { url, id }
+      const res = await api.post("/payments/checkout", {
+        packageId: pkg._id,
+      });
+
       const url = res.data?.url || res.data?.checkoutUrl;
+
       if (!url) {
-        alert("Checkout URL not returned by server. Check backend logs.");
+        alert("Checkout URL missing from backend.");
         setBuying(false);
         return;
       }
-      // open in new tab so user completes payment on Stripe
+
       window.open(url, "_blank");
-      // optionally show a toast for next steps
+
       alert(
-        "Checkout opened. Complete payment in the new tab. After payment completes, the webhook will update your subscription."
+        "Checkout opened in new tab. Complete payment there — your subscription updates automatically after Stripe webhook confirms payment."
       );
+
     } catch (err) {
       console.error("Checkout error", err);
       alert(err.response?.data?.message || "Failed to create checkout session");
@@ -65,11 +61,16 @@ export default function Packages() {
     }
   };
 
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Packages <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">& Billing</span></h2>
+        <h2 className="text-3xl font-bold text-gray-900">
+          Packages{" "}
+          <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+            & Billing
+          </span>
+        </h2>
+
         <div className="text-sm text-neutral">
           Your role: {user?.role || "guest"}
         </div>
@@ -90,7 +91,7 @@ export default function Packages() {
             />
           ))}
         </div>
-      )}      
+      )}
     </div>
   );
 }

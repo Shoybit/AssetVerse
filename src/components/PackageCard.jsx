@@ -88,13 +88,13 @@ const PackageCard = ({ pkg, onBuy, disabled, isCurrentPlan = false }) => {
         <div className="mt-6">
           <button
             className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-[1.02] ${isCurrentPlan 
-              ? 'bg-gray-100 text-gray-700 border border-gray-300 cursor-not-allowed' 
+              ? 'bg-yellow-400 text-gray-700 border border-gray-300 cursor-not-allowed' 
               : 'bg-linear-to-r from-primary to-secondary text-white hover:shadow-lg'}`}
             onClick={() => onBuy(pkg)}
             disabled={disabled || isCurrentPlan}
           >
             <div className="flex items-center justify-center">
-              <span>{isCurrentPlan ? 'Current Plan' : disabled ? 'Processing...' : 'Get Started'}</span>
+              <span>{isCurrentPlan ? 'Current Plan' :  'Get Started'}</span>
               {!isCurrentPlan && !disabled && (
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

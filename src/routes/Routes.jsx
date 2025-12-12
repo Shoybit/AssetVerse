@@ -22,6 +22,7 @@ import Packages from "../pages/Payments/Packages";
 import PaymentHistory from "../pages/Payments/PaymentHistory";
 import MyTeam from "../pages/dashboard/Employee/MyTeam";
 import AddAssetForm from "../components/AddAssetForm";
+import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
 
 
 const routes = [
@@ -31,7 +32,7 @@ const routes = [
     children: [
       { index: true, element: <Home /> },
 
-      // Public-only routes (redirect if already logged in)
+      { path: "payments/success", element: <PaymentsSuccess /> },
       {
         element: <PublicRoute />,
         children: [
@@ -63,6 +64,8 @@ const routes = [
           { path: "payments", element: <PaymentHistory /> },
           { path: "dashboard", element: <HRDashboard /> },
           { path: "add-asset", element: <AddAssetForm /> },
+          
+
         ],
       },
 

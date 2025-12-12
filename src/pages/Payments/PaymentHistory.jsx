@@ -4,71 +4,63 @@ import AuthContext from "../../context/AuthContext";
 
 export default function PaymentHistory() {
   const { user } = useContext(AuthContext);
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user?._id) return;
+
+    const load = async () => {
+      try {
+        const res = await api.get("/payments/history");
+        setHistory(res.data.items || []);
+      } catch (err) {
+        console.error("History load error:", err);
+      } finally {
+        setLoading(false); // ⭐ loading বন্ধ করার জায়গা
+      }
+    };
+
     load();
   }, [user]);
 
-  const load = async () => {
-    setLoading(true);
-    try {
-      const res = await api.get("/payments/history");
-      setItems(res.data.items || []);
-    } catch (err) {
-      console.error("Load payments", err);
-      alert(err.response?.data?.message || "Failed to load payment history");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (!user || user.role !== "hr") {
-    return (
-      <div className="text-center py-10">
-        Only HR users can view payment history.
-      </div>
-    );
-  }
+  if (!user) return <div>Please login to view payment history.</div>;
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold">Payment history</h2>
-      </div>
+      <h2 className="text-3xl font-bold text-gray-900 mb-4">
+        Payment{" "}
+        <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+          History
+        </span>
+      </h2>
 
       {loading ? (
-        <div className="text-center py-8">Loading…</div>
-      ) : items.length === 0 ? (
-        <div className="text-center py-8 text-neutral">
-          No payment records found.
-        </div>
+        <div className="py-6 text-center">Loading…</div>
+      ) : history.length === 0 ? (
+        <div className="py-6 text-gray-500">No payments found.</div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table w-full">
+          <table className="table w-full border">
             <thead>
-              <tr>
+              <tr className="bg-gray-100">
                 <th>Package</th>
                 <th>Amount</th>
-                <th>Limit</th>
+                <th>Status</th>
                 <th>Date</th>
-                <th>Txn</th>
+                <th>Stripe Session</th>
               </tr>
             </thead>
             <tbody>
-              {items.map((p) => (
+              {history.map((p) => (
                 <tr key={p._id}>
-                  <td>{p.packageName || "-"}</td>
-                  <td>
-                    {p.amount
-                      ? (p.amount / 100).toFixed(2) + " " + (p.currency || "")
-                      : "-"}
-                  </td>
-                  <td>{p.employeeLimit ?? "-"}</td>
+                  <td>{p.packageName}</td>
+                  <td>${p.amount}</td>
+                  <td>{p.status}</td>
                   <td>{new Date(p.paymentDate).toLocaleString()}</td>
-                  <td className="text-xs">{p.transactionId}</td>
+                  <td className="text-blue-500">
+                    {p.transactionId?.slice(0, 10)}…
+                  </td>
                 </tr>
               ))}
             </tbody>
