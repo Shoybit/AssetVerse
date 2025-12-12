@@ -37,13 +37,13 @@ const MyAssets = () => {
           : it
       )
     );
-    // loadAssigned(page);
   };
 
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-2xl font-semibold">My Assigned Assets</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">My <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent
+">Assets</span></h2>
       </div>
 
       {loading ? (

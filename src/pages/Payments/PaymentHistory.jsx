@@ -17,7 +17,7 @@ export default function PaymentHistory() {
       } catch (err) {
         console.error("History load error:", err);
       } finally {
-        setLoading(false); // ⭐ loading বন্ধ করার জায়গা
+        setLoading(false); 
       }
     };
 

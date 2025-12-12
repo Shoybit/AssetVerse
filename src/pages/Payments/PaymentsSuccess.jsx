@@ -69,10 +69,10 @@ export default function PaymentsSuccess() {
       </div>
 
       <a
-        href="/hr/dashboard"
+        href="/hr/payments"
         className="inline-block mt-6 bg-primary text-white px-6 py-3 rounded-lg shadow hover:opacity-80 transition"
       >
-        Go to Dashboard
+        Payment History
       </a>
     </div>
   );
