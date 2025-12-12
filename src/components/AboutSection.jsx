@@ -53,7 +53,7 @@ const industries = [
 export default function AboutSection() {
   return (
     <section className="py-16 bg-linear-to-b from-base-100 to-base-50">
-      <div className="max-w-11/12 mx-auto ">
+      <div className="max-w-12/12 mx-auto ">
         
         {/* Header Section */}
         <motion.div

@@ -25,7 +25,7 @@ export default function Requests() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">Incoming Requests</h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-2">Incoming <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Requests</span></h2>
 
       {loading ? (
         <div className="text-center py-10">Loading...</div>

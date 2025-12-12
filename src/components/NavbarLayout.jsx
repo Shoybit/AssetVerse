@@ -1,4 +1,3 @@
-// src/components/NavbarLayout.jsx
 import React from "react";
 import { Outlet } from "react-router";
 import Navbar from "./Navbar";
@@ -11,7 +10,7 @@ export default function NavbarLayout() {
       <Navbar />
 
       {/* main should expand to fill remaining space so Footer stays at bottom */}
-      <main className="grow w-11/12 mx-auto p-4">
+      <main className="grow w-10/12 mx-auto pt-4">
         <Outlet />
       </main>
 

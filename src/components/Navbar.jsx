@@ -261,7 +261,7 @@ export default function Navbar() {
                   </li>
                   <li className="mb-1">
                     <NavLink to="/hr/assets" className={activeClass}>
-                      <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
+                      <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2 ">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Asset List
                       </span>
@@ -269,7 +269,7 @@ export default function Navbar() {
                   </li>
                   <li className="mb-1">
                     <NavLink to="/hr/add-asset" className={activeClass}>
-                      <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
+                      <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Add Asset
                       </span>
@@ -277,7 +277,7 @@ export default function Navbar() {
                   </li>
                   <li className="mb-1">
                     <NavLink to="/hr/requests" className={activeClass}>
-                      <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
+                      <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         All Requests
                       </span>
@@ -285,7 +285,7 @@ export default function Navbar() {
                   </li>
                   <li className="mb-1">
                     <NavLink to="/hr/employees" className={activeClass}>
-                      <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
+                      <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Employee List
                       </span>
@@ -294,7 +294,7 @@ export default function Navbar() {
                   <li className="border-t border-base-300 my-2" />
                   <li className="mb-1">
                     <NavLink to="/profile" className={activeClass}>
-                      <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
+                      <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Profile
                       </span>

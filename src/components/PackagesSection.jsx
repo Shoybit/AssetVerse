@@ -98,8 +98,8 @@ export default function PackagesSection() {
   }
 
   return (
-    <section className="py-20 bg-linear-to-b from-base-100 to-base-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 ">
+      <div className="max-w-12/12 mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
         <motion.div

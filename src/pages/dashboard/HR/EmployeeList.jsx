@@ -41,7 +41,7 @@ const EmployeeList= () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold">Affiliated Employees</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Affiliated <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Employees</span></h2>
         <div className="flex items-center gap-2">
           <input
             value={q}
@@ -72,7 +72,7 @@ const EmployeeList= () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra w-full flex justify-between items-center">
+          <table className="table table-zebra flex justify-center items-center">
             <thead>
               <tr>
                 <th>Employee</th>

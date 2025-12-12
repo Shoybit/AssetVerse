@@ -66,7 +66,7 @@ const testimonials = [
 export default function TestimonialsStats() {
   return (
     <section className="py-20 from-base-100 to-base-200">
-      <div className="max-w-11/12 mx-auto ">
+      <div className="max-w-12/12 mx-auto ">
         
         {/* STATS SECTION */}
         <motion.div

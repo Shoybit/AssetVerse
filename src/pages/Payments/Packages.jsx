@@ -69,7 +69,7 @@ export default function Packages() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-semibold">Packages & Billing</h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Packages <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">& Billing</span></h2>
         <div className="text-sm text-neutral">
           Your role: {user?.role || "guest"}
         </div>

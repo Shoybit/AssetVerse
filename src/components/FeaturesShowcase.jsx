@@ -66,7 +66,7 @@ const features = [
 export default function FeaturesShowcase() {
   return (
     <section className="py-20 bg-linear-to-b from-base-50 to-base-100">
-      <div className="max-w-11/12 mx-auto ">
+      <div className="max-w-12/12 mx-auto ">
         
         {/* Section Header */}
         <motion.div

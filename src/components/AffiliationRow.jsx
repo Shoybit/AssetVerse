@@ -1,38 +1,27 @@
 import React, { useState } from "react";
 import api from "../services/api";
-import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 export default function AffiliationRow({ affiliation, onRemoved = () => {} }) {
   const [loading, setLoading] = useState(false);
 
   const handleRemove = async () => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      html: `
-        Remove <b>${affiliation.employeeName || affiliation.employeeEmail}</b> from your company?<br>
-        <span style="font-size:13px;color:#666">This will return all assigned assets.</span>
-      `,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#e3342f",
-      cancelButtonColor: "#6c757d",
-      confirmButtonText: "Yes, Remove",
-      cancelButtonText: "Cancel",
-    });
+    const ok = window.confirm(
+      `Remove ${affiliation.employeeName || affiliation.employeeEmail} from your company? This will return assigned assets.`
+    );
+    if (!ok) return;
 
-    if (!result.isConfirmed) return;
-
-    // User clicked Yes → Call API
     setLoading(true);
     try {
+      // call DELETE /affiliations/:employeeEmail
       const emailParam = encodeURIComponent(affiliation.employeeEmail);
       const res = await api.delete(`/affiliations/${emailParam}`);
-
       toast.success(res.data?.message || "Employee removed");
-      onRemoved(); // Refresh list
+      onRemoved(); // parent will refresh list and counts
     } catch (err) {
-      toast.error(err?.response?.data?.message || "Failed to remove");
+      console.error("Remove affiliation failed:", err);
+      const msg = err?.response?.data?.message || err?.message || "Failed to remove";
+      toast.error(msg);
     } finally {
       setLoading(false);
     }
@@ -63,7 +52,6 @@ export default function AffiliationRow({ affiliation, onRemoved = () => {} }) {
       <td className="text-sm">{new Date(affiliation.affiliationDate).toLocaleDateString()}</td>
       <td className="text-sm">{affiliation.status || "active"}</td>
       <td className="text-sm">{affiliation.assetsCount ?? 0}</td>
-
       <td>
         <button
           className="px-3 py-1 bg-red-50 text-red-700 rounded text-sm"

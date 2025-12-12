@@ -211,7 +211,7 @@ const handleSaved = (saved) => {
 
   return (
     <div className="min-h-screen ">
-      <div className="max-w-11/12 mx-auto">
+      <div className="">
         {/* header + actions */}
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
