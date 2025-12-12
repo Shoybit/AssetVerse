@@ -297,7 +297,13 @@ const handleSaved = (saved) => {
                           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">{asset.productType || asset.type || "Unknown"}</span>
                         </td>
 
-                        <td className="py-4 px-6"><div className="text-lg font-bold">{quantity}</div></td>
+                        <td className="py-4 px-6">
+                        <div className="text-lg font-bold">{quantity}</div>
+                        <div className="text-xs text-gray-500">
+                          Available: {asset.availableQuantity ?? quantity}
+                        </div>
+                      </td>
+
 
                         <td className="py-4 px-6">{asset.createdAt ? new Date(asset.createdAt).toLocaleDateString() : asset.dateAdded ? new Date(asset.dateAdded).toLocaleDateString() : "N/A"}</td>
 

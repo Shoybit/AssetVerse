@@ -1,17 +1,21 @@
 // src/components/NavbarLayout.jsx
-import React from 'react';
-import { Outlet } from 'react-router';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import React from "react";
+import { Outlet } from "react-router";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export default function NavbarLayout() {
   return (
-    <div className="min-h-screen bg-base-100">
+    // make root a column flex container and full viewport height
+    <div className="min-h-screen flex flex-col bg-base-100">
       <Navbar />
-      <main className="w-11/12 mx-auto p-4">
+
+      {/* main should expand to fill remaining space so Footer stays at bottom */}
+      <main className="grow w-11/12 mx-auto p-4">
         <Outlet />
       </main>
-      <Footer></Footer>
+
+      <Footer />
     </div>
   );
 }

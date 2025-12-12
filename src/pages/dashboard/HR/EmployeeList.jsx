@@ -72,7 +72,7 @@ const EmployeeList= () => {
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
+          <table className="table table-zebra w-full flex justify-between items-center">
             <thead>
               <tr>
                 <th>Employee</th>
@@ -80,7 +80,7 @@ const EmployeeList= () => {
                 <th>Company</th>
                 <th>Affiliated On</th>
                 <th>Status</th>
-                <th>Assigned</th>
+                <th>Assets Count</th>
                 <th>Action</th>
               </tr>
             </thead>
