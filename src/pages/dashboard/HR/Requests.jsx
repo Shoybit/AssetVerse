@@ -3,9 +3,20 @@ import { motion } from "framer-motion";
 import api from "../../../services/api";
 import RequestRow from "../../../components/RequestRow";
 
+/* ===== Loader (ADDED) ===== */
+function PageLoader({ text = "Loading..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[40vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+/* ========================= */
+
 export default function Requests() {
   const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loadRequests = async () => {
     setLoading(true);
@@ -24,6 +35,12 @@ export default function Requests() {
     loadRequests();
   }, []);
 
+  /* ===== PAGE LOAD → LOADER ===== */
+  if (loading) {
+    return <PageLoader text="Loading incoming requests..." />;
+  }
+  /* =============================== */
+
   return (
     <div>
       <h2 className="text-3xl font-bold text-gray-900 mb-2">
@@ -33,9 +50,7 @@ export default function Requests() {
         </span>
       </h2>
 
-      {loading ? (
-        <div className="text-center py-10">Loading...</div>
-      ) : requests.length === 0 ? (
+      {requests.length === 0 ? (
         <div className="text-center py-10 text-neutral">
           No pending requests
         </div>

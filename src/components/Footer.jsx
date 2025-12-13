@@ -18,7 +18,7 @@ export default function Footer() {
                 <span className="text-white font-bold">AV</span>
               </div>
               <span>
-                Asset<span className="text-primary">Verse</span>
+                Asset<span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Verse</span>
               </span>
             </Link>
 

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import AuthContext from "../../../context/AuthContext";
 import { Link } from "react-router";
 import AssetModal from "../../../components/AssetModal";
+import Loader from "../../../components/Loader";
 
 function normalizeToArray(data) {
   if (!data) return [];
@@ -269,8 +270,13 @@ const handleSaved = (saved) => {
 
               <tbody className="divide-y divide-gray-200">
                 {loading ? (
-                  <tr><td colSpan="6" className="py-16 text-center">Loading assets...</td></tr>
-                ) : filtered.length === 0 ? (
+  <tr>
+    <td colSpan="6">
+      <Loader text="Loading assets..." />
+    </td>
+  </tr>
+) : filtered.length === 0 ? (
+
                   <tr><td colSpan="6" className="py-16 text-center">No assets found.</td></tr>
                 ) : (
                   filtered.map((asset) => {

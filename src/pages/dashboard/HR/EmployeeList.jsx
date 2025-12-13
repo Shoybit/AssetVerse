@@ -3,13 +3,24 @@ import { motion } from "framer-motion";
 import api from "../../../services/api";
 import AffiliationRow from "../../../components/AffiliationRow";
 
+/* ===== Loader (ADDED) ===== */
+function PageLoader({ text = "Loading..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[40vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+/* ========================= */
+
 const EmployeeList = () => {
   const [items, setItems] = useState([]);
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const load = async (p = 1, search = q) => {
     setLoading(true);
@@ -37,6 +48,12 @@ const EmployeeList = () => {
   const handleRemoved = () => {
     load(1);
   };
+
+  /* ===== PAGE LOAD → LOADER ===== */
+  if (loading) {
+    return <PageLoader text="Loading affiliated employees..." />;
+  }
+  /* =============================== */
 
   return (
     <div>
@@ -69,9 +86,7 @@ const EmployeeList = () => {
         </div>
       </div>
 
-      {loading ? (
-        <div className="text-center py-10">Loading...</div>
-      ) : items.length === 0 ? (
+      {items.length === 0 ? (
         <div className="text-center py-10 text-neutral">
           No affiliated employees found.
         </div>
@@ -82,7 +97,7 @@ const EmployeeList = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <table className="table table-zebra flex justify-center items-center">
+          <table className="table table-zebra w-full">
             <thead>
               <tr>
                 <th>Employee</th>

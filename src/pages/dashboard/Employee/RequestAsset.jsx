@@ -43,7 +43,7 @@ const RequestAsset = () => {
     <div className="max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Request Assets</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Request <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Assets</span></h1>
         <p className="text-gray-600">Browse and request available assets from inventory</p>
       </div>
 

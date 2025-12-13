@@ -1,12 +1,31 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import AuthContext from "../context/AuthContext";
 
 
+function PageLoader({ text = "Loading..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[300px] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+
 export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, imgbbKey }) {
   const { user } = useContext(AuthContext);
 
+  /* ===== loader state ===== */
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setInitialLoading(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, []);
   // form state
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("Returnable");
@@ -194,7 +213,9 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
       setUploadProgress(0);
     }
   };
-
+  if (initialLoading) {
+    return <PageLoader text="Preparing asset form..." />;
+  }
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white shadow-xl rounded-2xl p-6">

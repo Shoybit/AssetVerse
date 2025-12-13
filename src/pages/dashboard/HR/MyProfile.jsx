@@ -1,11 +1,33 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 import React, { useContext, useEffect, useState } from "react";
 import api from "../../../services/api";
 import AuthContext from "../../../context/AuthContext";
-import { FiUser, FiMail, FiPhone, FiMapPin, FiUpload, FiSave, FiBriefcase, FiCamera } from "react-icons/fi";
+import {
+  FiUser,
+  FiMail,
+  FiPhone,
+  FiMapPin,
+  FiUpload,
+  FiSave,
+  FiBriefcase,
+  FiCamera,
+} from "react-icons/fi";
+
+/* ===== Page Loader (ADDED) ===== */
+function PageLoader({ text = "Loading profile..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+/* ============================== */
 
 export default function MyProfile() {
   const { user, setUser } = useContext(AuthContext);
+
+  const [initialLoading, setInitialLoading] = useState(true);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -18,19 +40,34 @@ export default function MyProfile() {
   const [toast, setToast] = useState({ show: false, message: "", type: "" });
 
   useEffect(() => {
-    if (user) {
-      setForm({
-        name: user.name || "",
-        phone: user.phone || "",
-        address: user.address || "",
-      });
-      setPreview(user.photo || "");
-    }
+    const loadProfile = async () => {
+      try {
+        if (user) {
+          setForm({
+            name: user.name || "",
+            phone: user.phone || "",
+            address: user.address || "",
+          });
+          setPreview(user.photo || "");
+        }
 
-    api.get("/affiliations/my").then((res) => {
-      setCompanies(res.data.items || []);
-    });
+        const res = await api.get("/affiliations/my");
+        setCompanies(res.data.items || []);
+      } catch (err) {
+        console.error("Profile load failed", err);
+      } finally {
+        setInitialLoading(false);
+      }
+    };
+
+    loadProfile();
   }, [user]);
+
+  /* ===== PAGE LOAD → LOADER ===== */
+  if (initialLoading) {
+    return <PageLoader text="Preparing your profile..." />;
+  }
+  /* =============================== */
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -83,14 +120,17 @@ export default function MyProfile() {
 
       setUser(res.data.user);
       showToast("Profile updated successfully!", "success");
-      
     } catch (err) {
       console.error("UPDATE ERROR ", err.response?.data || err.message);
-      showToast(err.response?.data?.message || "Update failed. Please try again.", "error");
+      showToast(
+        err.response?.data?.message || "Update failed. Please try again.",
+        "error"
+      );
     } finally {
       setSaving(false);
     }
   };
+
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">

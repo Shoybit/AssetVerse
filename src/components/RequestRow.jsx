@@ -1,8 +1,8 @@
-// src/components/RequestRow.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import api from "../services/api";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function prettyDate(d) {
   try {
@@ -28,33 +28,93 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
   const requesterEmail =
     req.requesterEmail || req.requester_email || req.requesterEmail;
 
+  const isPending =
+    !req.requestStatus ||
+    String(req.requestStatus).toLowerCase() === "pending";
+
   const handleApprove = async () => {
+    const result = await Swal.fire({
+      title: "Approve request?",
+      html: `
+        <p>
+          Approve asset request for
+          <strong>${requesterName}</strong>?
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+          Asset: <strong>${assetName || assetId}</strong>
+        </p>
+      `,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Approve",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#16a34a",
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) return;
+
     setLoading(true);
     try {
+      Swal.fire({
+        title: "Approving...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
+      });
+
       const res = await api.put(`/requests/${requestId}/approve`);
+      Swal.close();
       toast.success(res?.data?.message || "Approved");
       onActionDone();
     } catch (err) {
+      Swal.close();
       toast.error(
         err?.response?.data?.message || err?.message || "Approve failed"
       );
-      onActionDone();
     } finally {
       setLoading(false);
     }
   };
 
   const handleReject = async () => {
+    const result = await Swal.fire({
+      title: "Reject request?",
+      html: `
+        <p>
+          Reject asset request from
+          <strong>${requesterName}</strong>?
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+          Asset: <strong>${assetName || assetId}</strong>
+        </p>
+      `,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Reject",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#dc2626",
+      reverseButtons: true,
+    });
+
+    if (!result.isConfirmed) return;
+
     setLoading(true);
     try {
+      Swal.fire({
+        title: "Rejecting...",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading(),
+      });
+
       const res = await api.put(`/requests/${requestId}/reject`);
+      Swal.close();
       toast.success(res?.data?.message || "Rejected");
       onActionDone();
     } catch (err) {
+      Swal.close();
       toast.error(
         err?.response?.data?.message || err?.message || "Reject failed"
       );
-      onActionDone();
     } finally {
       setLoading(false);
     }
@@ -77,7 +137,7 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
       </td>
 
       <td className="text-sm text-neutral">
-        {prettyDate(req.requestDate || req.requestedAt || req.requestDate)}
+        {prettyDate(req.requestDate || req.requestedAt)}
       </td>
 
       <td className="text-sm">{req.note || "-"}</td>
@@ -85,25 +145,17 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
       <td>
         <div className="flex items-center gap-2">
           <button
-            className="px-3 py-1 bg-green-50 text-green-700 rounded text-sm"
+            className="px-3 py-1 bg-green-50 text-green-700 rounded text-sm disabled:opacity-60"
             onClick={handleApprove}
-            disabled={
-              loading ||
-              (req.requestStatus &&
-                String(req.requestStatus).toLowerCase() !== "pending")
-            }
+            disabled={loading || !isPending}
           >
             {loading ? "..." : "Approve"}
           </button>
 
           <button
-            className="px-3 py-1 bg-red-50 text-red-700 rounded text-sm"
+            className="px-3 py-1 bg-red-50 text-red-700 rounded text-sm disabled:opacity-60"
             onClick={handleReject}
-            disabled={
-              loading ||
-              (req.requestStatus &&
-                String(req.requestStatus).toLowerCase() !== "pending")
-            }
+            disabled={loading || !isPending}
           >
             Reject
           </button>
