@@ -83,7 +83,7 @@ export default function Navbar() {
                   </li>
                   <li className="border-t border-base-300 my-3" />
                   <li className="mb-2">
-                    <NavLink to="/profile" className={activeClass}>
+                    <NavLink to="/my-profile" className={activeClass}>
                       <span className="px-4 py-2 block">Profile</span>
                     </NavLink>
                   </li>
@@ -115,7 +115,7 @@ export default function Navbar() {
                   </li>
                   <li className="border-t border-base-300 my-3" />
                   <li className="mb-2">
-                    <NavLink to="/profile" className={activeClass}>
+                    <NavLink to="/my-profile" className={activeClass}>
                       <span className="px-4 py-2 block">Profile</span>
                     </NavLink>
                   </li>
@@ -230,7 +230,7 @@ export default function Navbar() {
                   </li>
                   <li className="border-t border-base-300 my-2" />
                   <li className="mb-1">
-                    <NavLink to="/profile" className={activeClass}>
+                    <NavLink to="/my-profile" className={activeClass}>
                       <span className="py-2 px-3 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Profile
@@ -293,7 +293,7 @@ export default function Navbar() {
                   </li>
                   <li className="border-t border-base-300 my-2" />
                   <li className="mb-1">
-                    <NavLink to="/profile" className={activeClass}>
+                    <NavLink to="/my-profile" className={activeClass}>
                       <span className="py-2 px-2 block hover:bg-base-200 rounded-lg items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full"></span>
                         Profile

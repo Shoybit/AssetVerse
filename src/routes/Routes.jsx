@@ -23,6 +23,7 @@ import PaymentHistory from "../pages/Payments/PaymentHistory";
 import MyTeam from "../pages/dashboard/Employee/MyTeam";
 import AddAssetForm from "../components/AddAssetForm";
 import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
+import MyProfile from "../pages/dashboard/Employee/MyProfile";
 
 
 const routes = [
@@ -46,9 +47,11 @@ const routes = [
       {
         element: <PrivateRoute allowedRoles={["employee", "hr"]} />,
         children: [
+          { path: "my-profile", element: <MyProfile /> },
           { path: "my-assets", element: <MyAssets /> },
           { path: "request-asset", element: <RequestAsset /> },
           {path: "my-team", element: <MyTeam/> }
+          
         ],
       },
 
