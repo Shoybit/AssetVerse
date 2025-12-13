@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import api from "../../../services/api";
 import Skeleton from "../../../components/Skeleton";
@@ -106,7 +105,7 @@ export default function MyTeam() {
         {/* Birthdays */}
         <div className="card bg-base-100 p-4">
           <h3 className="font-medium mb-3">
-            🎂 Upcoming Birthdays (This Month)
+            Upcoming Birthdays (This Month)
           </h3>
 
           {loading ? (

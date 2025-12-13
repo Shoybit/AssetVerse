@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import api from "../../../services/api";
 import RequestRow from "../../../components/RequestRow";
 
@@ -25,7 +26,12 @@ export default function Requests() {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-2">Incoming <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Requests</span></h2>
+      <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        Incoming{" "}
+        <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Requests
+        </span>
+      </h2>
 
       {loading ? (
         <div className="text-center py-10">Loading...</div>
@@ -34,7 +40,12 @@ export default function Requests() {
           No pending requests
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <motion.div
+          className="overflow-x-auto"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <table className="table table-zebra w-full">
             <thead>
               <tr>
@@ -55,7 +66,7 @@ export default function Requests() {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
       )}
     </div>
   );

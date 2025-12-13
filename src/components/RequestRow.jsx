@@ -1,24 +1,8 @@
 // src/components/RequestRow.jsx
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import api from "../services/api";
 import { toast } from "react-toastify";
-
-/**
- * RequestRow
- * Props:
- *  - req: request object (your DB record)
- *  - onActionDone: callback to refresh parent list
- *
- * Uses fields from your sample:
- *  - req._id
- *  - req.assetId
- *  - req.assetName
- *  - req.requesterName
- *  - req.requesterEmail
- *  - req.requestDate
- *  - req.note
- *  - req.requestStatus
- */
 
 function prettyDate(d) {
   try {
@@ -44,45 +28,32 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
   const requesterEmail =
     req.requesterEmail || req.requester_email || req.requesterEmail;
 
-  // Approve handler
   const handleApprove = async () => {
-    if (
-      !window.confirm(
-        `Approve request by ${requesterName} for "${assetName || assetId}"?`
-      )
-    )
-      return;
     setLoading(true);
     try {
-      // call backend transactional approve endpoint
       const res = await api.put(`/requests/${requestId}/approve`);
       toast.success(res?.data?.message || "Approved");
       onActionDone();
     } catch (err) {
-      console.error("Approve failed", err);
-      const msg =
-        err?.response?.data?.message || err?.message || "Approve failed";
-      toast.error(msg);
-      // still refresh to get latest state
+      toast.error(
+        err?.response?.data?.message || err?.message || "Approve failed"
+      );
       onActionDone();
     } finally {
       setLoading(false);
     }
   };
 
-  // Reject handler
   const handleReject = async () => {
-    if (!window.confirm(`Reject request by ${requesterName}?`)) return;
     setLoading(true);
     try {
       const res = await api.put(`/requests/${requestId}/reject`);
       toast.success(res?.data?.message || "Rejected");
       onActionDone();
     } catch (err) {
-      console.error("Reject failed", err);
-      const msg =
-        err?.response?.data?.message || err?.message || "Reject failed";
-      toast.error(msg);
+      toast.error(
+        err?.response?.data?.message || err?.message || "Reject failed"
+      );
       onActionDone();
     } finally {
       setLoading(false);
@@ -90,7 +61,11 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
   };
 
   return (
-    <tr>
+    <motion.tr
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25 }}
+    >
       <td>
         <div className="font-medium">{requesterName}</div>
         <div className="text-xs text-neutral">{requesterEmail || "-"}</div>
@@ -117,7 +92,6 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
               (req.requestStatus &&
                 String(req.requestStatus).toLowerCase() !== "pending")
             }
-            title={req.requestStatus && String(req.requestStatus)}
           >
             {loading ? "..." : "Approve"}
           </button>
@@ -135,6 +109,6 @@ export default function RequestRow({ req, onActionDone = () => {} }) {
           </button>
         </div>
       </td>
-    </tr>
+    </motion.tr>
   );
 }

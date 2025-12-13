@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import api from "../../../services/api";
 import AffiliationRow from "../../../components/AffiliationRow";
 
-const EmployeeList= () => {
+const EmployeeList = () => {
   const [items, setItems] = useState([]);
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
@@ -34,14 +35,18 @@ const EmployeeList= () => {
   }, []);
 
   const handleRemoved = () => {
-    // refresh first page after removal
     load(1);
   };
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Affiliated <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">Employees</span></h2>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+          Affiliated{" "}
+          <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+            Employees
+          </span>
+        </h2>
         <div className="flex items-center gap-2">
           <input
             value={q}
@@ -71,7 +76,12 @@ const EmployeeList= () => {
           No affiliated employees found.
         </div>
       ) : (
-        <div className="overflow-x-auto">
+        <motion.div
+          className="overflow-x-auto"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           <table className="table table-zebra flex justify-center items-center">
             <thead>
               <tr>
@@ -94,7 +104,7 @@ const EmployeeList= () => {
               ))}
             </tbody>
           </table>
-        </div>
+        </motion.div>
       )}
 
       {total > limit && (
@@ -120,5 +130,6 @@ const EmployeeList= () => {
       )}
     </div>
   );
-}
+};
+
 export default EmployeeList;
