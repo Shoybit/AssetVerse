@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 import { AuthProvider } from "./context/AuthContext";
-import router from "./routes/routes";
+import router from "./routes/Routes";
 import "./index.css";
 import { ToastContainer } from "react-toastify";
 
