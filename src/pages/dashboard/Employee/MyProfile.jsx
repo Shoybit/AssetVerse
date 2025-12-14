@@ -51,7 +51,7 @@ export default function MyProfile() {
           setPreview(user.photo || "");
         }
 
-        const res = await api.get("/affiliations/my");
+        const res = await api.get("/api/affiliations/my");
         setCompanies(res.data.items || []);
       } catch (err) {
         console.error("Profile load failed", err);

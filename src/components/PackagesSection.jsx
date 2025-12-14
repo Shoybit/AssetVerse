@@ -41,7 +41,7 @@ export default function PackagesSection() {
 
     async function load() {
       try {
-        const res = await api.get("/packages");
+        const res = await api.get('/api/packages');
         if (mounted) {
           const filtered = res.data.packages.filter((p) =>
             allowedPlans.includes(p.name)

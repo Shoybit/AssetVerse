@@ -22,6 +22,7 @@ export function AuthProvider({ children }) {
     else localStorage.removeItem('av_token');
   };
 
+  
   const register = async (payload) => {
     const res = await api.post('/register', payload);
     const { token, user: u } = res.data;
@@ -29,6 +30,7 @@ export function AuthProvider({ children }) {
     setUser(u);
     return res.data;
   };
+
 
   const login = async (email, password) => {
     const res = await api.post('/login', { email, password });

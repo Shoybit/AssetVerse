@@ -41,7 +41,7 @@ export default function AffiliationRow({ affiliation, onRemoved = () => {} }) {
       });
 
       const emailParam = encodeURIComponent(affiliation.employeeEmail);
-      const res = await api.delete(`/affiliations/${emailParam}`);
+      const res = await api.delete(`/api/affiliations/${emailParam}`);
 
       Swal.close();
       toast.success(res.data?.message || "Employee removed");
