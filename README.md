@@ -1,95 +1,133 @@
-# AssetVerse - Modern Asset Management System
-
+# 🚀 AssetVerse — Modern Asset Management System
 
 ## 📋 Project Overview
 
-AssetVerse is a comprehensive, feature-rich modern Asset Management System built with React and Tailwind CSS. This application provides an intuitive and efficient interface for managing digital assets.
+**AssetVerse** is a comprehensive, feature-rich **Asset Management System** designed to help organizations efficiently manage and track digital or corporate assets.  
+Built with **React, TypeScript, and Tailwind CSS**, AssetVerse delivers a modern UI, smooth user experience, and scalable architecture.
 
-## Live : https://my-assetverse.vercel.app/
-## Server Repo : https://github.com/Shoybit/AssetVerse-Backend
+---
+
+## 🌐 Live & Repositories
+
+- **Live Demo:** https://my-assetverse.vercel.app/
+- **Frontend Repo:** https://github.com/Shoybit/AssetVerse
+- **Backend Repo:** https://github.com/Shoybit/AssetVerse-Backend
+
+---
 
 ## ✨ Key Features
 
-- 📊 Dashboard and asset overview
-- 📈 Interactive charts and visualizations
-- 🔍 Advanced search and filtering system
-- 📝 Add/Edit/Delete asset operations
-- 🏷️ Category and tag management
-- 📄 Report generation and printing
-- 🔔 Notification and alert system
-- 📱 Responsive design (Mobile-friendly)
+- 📊 Dashboard with asset overview
+- 📈 Interactive charts & visual analytics
+- 🔍 Advanced search and filtering
+- 📝 Add / Edit / Delete asset operations
+- 🏷️ Category & tag management
+- 📄 Report generation & print support
+- 🔔 Notifications and alerts
+- 📱 Fully responsive (mobile-friendly)
+
+---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **DaisyUI** - Tailwind CSS component library
-- **Vite** - Build tool and development server
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS v4**
+- **DaisyUI**
+- **Vite**
 
 ### State Management & Forms
-- **React Hook Form** - Form management
-- **Framer Motion** - Animation library
+- **React Hook Form**
+- **Framer Motion**
 
-### HTTP Client
-- **Axios** - HTTP requests
+### Networking
+- **Axios**
 
 ### Charts & Visualization
-- **Recharts** - Charting library
+- **Recharts**
 
-### Icons
-- **Lucide React** - Icon set
-- **React Icons** - Additional icons
-
-### Utilities
-- **React Toastify** - Toast notifications
-- **SweetAlert2** - Modal dialogs
-- **React Loader Spinner** - Loading spinners
-- **React-to-print** - Printing functionality
+### UI & Utilities
+- **Lucide React**
+- **React Icons**
+- **React Toastify**
+- **SweetAlert2**
+- **React Loader Spinner**
+- **react-to-print**
 
 ### Routing
-- **React Router v7** - Client-side routing
+- **React Router v7**
+
+---
+
+## 📦 npm Packages Used
+
+react  
+react-dom  
+typescript  
+tailwindcss  
+daisyui  
+axios  
+react-hook-form  
+framer-motion  
+recharts  
+react-toastify  
+sweetalert2  
+react-loader-spinner  
+react-to-print  
+react-router-dom  
+
+---
 
 ## 🚀 Installation & Setup
 
 ### Prerequisites
-- Node.js 20.x or higher
+- Node.js v20.x or higher
 - npm or yarn
 
-### Installation Steps
+### Steps
 
-1. **Clone the repository**
 ```bash
 git clone https://github.com/Shoybit/AssetVerse.git
 cd AssetVerse
-
-
 npm install
-# or
-yarn install
-
 npm run dev
-# or
-yarn dev
+```
 
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file:
+
+```env
+VITE_API_BASE_URL=https://your-backend-api-url.com
+```
+
+---
 
 ## 📁 Project Structure
 
 AssetVerse/
 ├── src/
-│   ├── components/     # Reusable components
-│   ├── pages/         # Page components
-│   ├── layouts/       # Layout components
-│   ├── hooks/         # Custom React hooks
-│   ├── utils/         # Utility functions
-│   ├── types/         # TypeScript type definitions
-│   ├── services/      # API services
-│   ├── styles/        # Global styles
-│   └── App.tsx        # Main app component
-├── public/            # Static assets
-├── index.html         # Entry point
-├── vite.config.ts     # Vite configuration
-├── tailwind.config.js # Tailwind CSS configuration
-├── package.json       # Dependencies and scripts
-└── README.md          # This file
+│   ├── components/
+│   ├── pages/
+│   ├── layouts/
+│   ├── hooks/
+│   ├── utils/
+│   ├── types/
+│   ├── services/
+│   ├── styles/
+│   └── App.tsx
+├── public/
+├── index.html
+├── vite.config.ts
+├── tailwind.config.js
+├── package.json
+└── README.md
+
+---
+
+## 📄 License
+
+MIT License
