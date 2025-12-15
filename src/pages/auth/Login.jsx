@@ -1,8 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router";
 import { Mail, Lock, LogIn } from "lucide-react"; 
+
+function PageLoader({ text = "Loading your assets..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -12,9 +21,22 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [serverError, setServerError] = useState(null);
-  const [loading, setLoading] = useState(false);
+const [pageLoading, setPageLoading] = useState(true);
+const [loading, setLoading] = useState(false);
+
+  /* -------- Page load loader -------- */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 600); // smooth UX
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const navigate = useNavigate();
 
+
+  
   const onSubmit = async (data) => {
     setServerError(null);
     setLoading(true);
@@ -38,6 +60,14 @@ const Login = () => {
       setLoading(false);
     }
   };
+if (pageLoading) {
+  return <PageLoader text="Preparing login screen..." />;
+}
+
+if (loading) {
+  return <PageLoader text="Signing you in..." />;
+}
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">

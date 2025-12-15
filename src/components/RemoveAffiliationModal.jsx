@@ -14,8 +14,9 @@ const RemoveAffiliationModal = ({
     setErr(null);
     try {
       await api.delete(
-        `/api/affiliations/${encodeURIComponent(affiliation.employeeEmail)}`
+        `/affiliations/${encodeURIComponent(affiliation.employeeEmail)}`
       );
+
       // success
       onRemoved && onRemoved();
     } catch (e) {

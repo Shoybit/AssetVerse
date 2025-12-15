@@ -133,7 +133,7 @@ export default function MyProfile() {
 
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="max-w-12/12 mx-auto px-4 py-8">
       {/* Toast Notification */}
       {toast.show && (
         <div className={`fixed top-6 right-6 z-50 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ${toast.type === "success" ? "bg-green-500 text-white" : "bg-red-500 text-white"}`}>

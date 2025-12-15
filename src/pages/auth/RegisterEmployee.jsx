@@ -1,8 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AuthContext from "../../context/AuthContext";
 import { useNavigate, Link } from "react-router";
 import { User, Mail, Lock, Calendar, Image, ArrowRight, X } from "lucide-react";
+
+
+function PageLoader({ text = "Loading your assets..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
 
 export default function RegisterEmployee() {
   const { register: registerApi } = useContext(AuthContext);
@@ -14,8 +24,19 @@ export default function RegisterEmployee() {
   } = useForm();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  
+    /* -------- Page load loader -------- */
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setPageLoading(false);
+      }, 600); // smooth UX
+  
+      return () => clearTimeout(timer);
+    }, []);
+  
 
   const profileImageUrl = watch("profileImage");
 
@@ -54,6 +75,16 @@ export default function RegisterEmployee() {
   const clearImage = () => {
     setImagePreview(null);
   };
+
+
+  if (pageLoading) {
+  return <PageLoader text="Preparing Regester Employee screen..." />;
+}
+
+if (loading) {
+  return <PageLoader text="Signing you in..." />;
+}
+
 
   return (
     <div className="min-h-screen bg-gradient-to-brpy-12 px-4 sm:px-6 lg:px-8">

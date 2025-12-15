@@ -217,10 +217,10 @@ export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, i
     return <PageLoader text="Preparing asset form..." />;
   }
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-12/12 mx-auto">
       <div className="bg-white shadow-xl rounded-2xl p-6">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-lg font-semibold flex items-center gap-1">
+          <h3 className="text-3xl font-bold text-gray-900 mb-2">
             Add <span className="bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">New Asset</span>
           </h3>
 

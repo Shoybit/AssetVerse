@@ -16,6 +16,15 @@ import {
   Briefcase
 } from "lucide-react";
 
+function PageLoader({ text = "Loading your assets..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+
 export default function RegisterHR() {
   const { register: registerApi } = useContext(AuthContext);
   const {
@@ -31,8 +40,19 @@ export default function RegisterHR() {
   });
   const navigate = useNavigate();
   const [serverError, setServerError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [logoPreview, setLogoPreview] = useState(null);
+    const [pageLoading, setPageLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    
+      /* -------- Page load loader -------- */
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setPageLoading(false);
+        }, 600); // smooth UX
+    
+        return () => clearTimeout(timer);
+      }, []);
+    
 
   const companyLogoUrl = watch("companyLogo");
 
@@ -75,6 +95,16 @@ export default function RegisterHR() {
   const clearLogo = () => {
     setLogoPreview(null);
   };
+
+
+  if (pageLoading) {
+  return <PageLoader text="Preparing Regester HR Manager screen..." />;
+}
+
+if (loading) {
+  return <PageLoader text="Signing you in..." />;
+}
+
 
   return (
     <div className="min-h-screen  py-12 px-4 sm:px-6 lg:px-8">
