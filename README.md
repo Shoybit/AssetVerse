@@ -1,16 +1,95 @@
-# React + Vite
+# AssetVerse - Modern Asset Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## 📋 Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+AssetVerse is a comprehensive, feature-rich modern Asset Management System built with React and Tailwind CSS. This application provides an intuitive and efficient interface for managing digital assets.
 
-## React Compiler
+## Live : https://my-assetverse.vercel.app/
+## Server Repo : https://github.com/Shoybit/AssetVerse-Backend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Key Features
 
-## Expanding the ESLint configuration
+- 📊 Dashboard and asset overview
+- 📈 Interactive charts and visualizations
+- 🔍 Advanced search and filtering system
+- 📝 Add/Edit/Delete asset operations
+- 🏷️ Category and tag management
+- 📄 Report generation and printing
+- 🔔 Notification and alert system
+- 📱 Responsive design (Mobile-friendly)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **DaisyUI** - Tailwind CSS component library
+- **Vite** - Build tool and development server
+
+### State Management & Forms
+- **React Hook Form** - Form management
+- **Framer Motion** - Animation library
+
+### HTTP Client
+- **Axios** - HTTP requests
+
+### Charts & Visualization
+- **Recharts** - Charting library
+
+### Icons
+- **Lucide React** - Icon set
+- **React Icons** - Additional icons
+
+### Utilities
+- **React Toastify** - Toast notifications
+- **SweetAlert2** - Modal dialogs
+- **React Loader Spinner** - Loading spinners
+- **React-to-print** - Printing functionality
+
+### Routing
+- **React Router v7** - Client-side routing
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+- Node.js 20.x or higher
+- npm or yarn
+
+### Installation Steps
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/Shoybit/AssetVerse.git
+cd AssetVerse
+
+
+npm install
+# or
+yarn install
+
+npm run dev
+# or
+yarn dev
+
+
+## 📁 Project Structure
+
+AssetVerse/
+├── src/
+│   ├── components/     # Reusable components
+│   ├── pages/         # Page components
+│   ├── layouts/       # Layout components
+│   ├── hooks/         # Custom React hooks
+│   ├── utils/         # Utility functions
+│   ├── types/         # TypeScript type definitions
+│   ├── services/      # API services
+│   ├── styles/        # Global styles
+│   └── App.tsx        # Main app component
+├── public/            # Static assets
+├── index.html         # Entry point
+├── vite.config.ts     # Vite configuration
+├── tailwind.config.js # Tailwind CSS configuration
+├── package.json       # Dependencies and scripts
+└── README.md          # This file
