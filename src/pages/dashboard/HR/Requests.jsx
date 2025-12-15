@@ -15,6 +15,12 @@ function PageLoader({ text = "Loading..." }) {
 /* ========================= */
 
 export default function Requests() {
+
+  
+  useEffect(() => {
+    document.title = "Requests_Asset | AssetVerse";
+  }, []);
+
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 

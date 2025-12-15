@@ -12,7 +12,6 @@ import {
   FiCamera,
 } from "react-icons/fi";
 
-/* ===== Page Loader (ADDED) ===== */
 function PageLoader({ text = "Loading profile..." }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
@@ -21,9 +20,12 @@ function PageLoader({ text = "Loading profile..." }) {
     </div>
   );
 }
-/* ============================== */
 
 export default function MyProfile() {
+
+    useEffect(() => {
+    document.title = "MyProfile | AssetVerse";
+  }, []);
   const { user, setUser } = useContext(AuthContext);
 
   const [initialLoading, setInitialLoading] = useState(true);
@@ -63,11 +65,9 @@ export default function MyProfile() {
     loadProfile();
   }, [user]);
 
-  /* ===== PAGE LOAD → LOADER ===== */
   if (initialLoading) {
     return <PageLoader text="Preparing your profile..." />;
   }
-  /* =============================== */
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -224,7 +224,7 @@ export default function MyProfile() {
                     key={c._id}
                     className="flex items-center gap-4 p-4 rounded-lg border border-gray-100 hover:border-blue-200 hover:bg-blue-50 transition-all"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <div className="shrink-0 w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center">
                       <FiBriefcase className="text-blue-600" size={20} />
                     </div>
                     <div className="flex-1 min-w-0">

@@ -15,6 +15,9 @@ import {
 import { FcIcons8Cup } from "react-icons/fc";
 
 export default function MyTeam() {
+      useEffect(() => {
+    document.title = "MyTeam | AssetVerse";
+  }, []);
   const [affiliations, setAffiliations] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [company, setCompany] = useState("all");

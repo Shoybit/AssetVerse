@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import api from "../../services/api"; 
 
 export default function PaymentsSuccess() {
+  
   const [params] = useSearchParams();
   const sessionId = params.get("session_id");
 

@@ -3,6 +3,9 @@ import api from "../../../services/api";
 import AssignedCard from "../../../components/AssignedCard";
 
 function PageLoader({ text = "Loading your assets..." }) {
+      useEffect(() => {
+    document.title = "My_Assets | AssetVerse";
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
       <span className="loading loading-spinner loading-lg text-primary"></span>

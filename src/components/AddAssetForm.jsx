@@ -16,6 +16,11 @@ function PageLoader({ text = "Loading..." }) {
 export default function AddAssetForm({ onSaved = () => {}, onClose = () => {}, imgbbKey }) {
   const { user } = useContext(AuthContext);
 
+  
+  useEffect(() => {
+    document.title = "AddAsset | AssetVerse";
+  }, []);
+
   /* ===== loader state ===== */
   const [initialLoading, setInitialLoading] = useState(true);
 

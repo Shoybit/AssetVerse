@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 export default function AffiliationRow({ affiliation, onRemoved = () => {} }) {
+
+    useEffect(() => {
+      document.title = "Employees_Asset | AssetVerse";
+    }, []);
+
   const [loading, setLoading] = useState(false);
 
   const handleRemove = async () => {

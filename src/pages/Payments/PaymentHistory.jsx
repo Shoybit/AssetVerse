@@ -13,6 +13,9 @@ function PageLoader({ text = "Loading payment history..." }) {
 }
 
 export default function PaymentHistory() {
+      useEffect(() => {
+    document.title = "PaymentHistory | AssetVerse";
+  }, []);
   const { user } = useContext(AuthContext);
 
   const [history, setHistory] = useState([]);

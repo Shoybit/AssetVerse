@@ -26,6 +26,9 @@ function PageLoader({ text = "Loading your assets..." }) {
 }
 
 export default function RegisterHR() {
+    useEffect(() => {
+    document.title = "RegisterHR | AssetVerse";
+  }, []);
   const { register: registerApi } = useContext(AuthContext);
   const {
     register,

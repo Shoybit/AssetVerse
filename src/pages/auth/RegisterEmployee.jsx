@@ -15,6 +15,9 @@ function PageLoader({ text = "Loading your assets..." }) {
 }
 
 export default function RegisterEmployee() {
+    useEffect(() => {
+    document.title = "RegisterEmployee | AssetVerse";
+  }, []);
   const { register: registerApi } = useContext(AuthContext);
   const {
     register,

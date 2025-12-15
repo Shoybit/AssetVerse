@@ -4,6 +4,9 @@ import RequestCard from "../../../components/RequestCard";
 import { FiPackage, FiGrid, FiSearch, FiClock, FiCheckCircle, FiFilter } from "react-icons/fi";
 
 const RequestAsset = () => {
+      useEffect(() => {
+    document.title = "RequestAsset | AssetVerse";
+  }, []);
   const [assets, setAssets] = useState([]);
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [loading, setLoading] = useState(true);

@@ -17,6 +17,7 @@ function normalizeToArray(data) {
   return [];
 }
 
+
 /* Simple Confirm Modal component */
 function ConfirmModal({ open, title, children, onCancel, onConfirm, confirming }) {
   if (!open) return null;
@@ -51,6 +52,12 @@ function UndoBanner({ visible, name, onUndo }) {
 }
 
 export default function AssetList() {
+
+  
+  useEffect(() => {
+    document.title = "AssetList | AssetVerse";
+  }, []);
+  
   const { user } = useContext(AuthContext);
   const canDelete = user?.role === "hr" || user?.isAdmin;
 

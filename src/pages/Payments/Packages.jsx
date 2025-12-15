@@ -14,6 +14,9 @@ function PageLoader({ text = "Loading packages..." }) {
 }
 
 export default function Packages() {
+      useEffect(() => {
+    document.title = "Packages | AssetVerse";
+  }, []);
   const { user } = useContext(AuthContext);
 
   const [packages, setPackages] = useState([]);

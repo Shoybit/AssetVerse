@@ -14,6 +14,9 @@ function PageLoader({ text = "Loading your assets..." }) {
 }
 
 const Login = () => {
+      useEffect(() => {
+    document.title = "Login | AssetVerse";
+  }, []);
   const { login } = useContext(AuthContext);
   const {
     register,

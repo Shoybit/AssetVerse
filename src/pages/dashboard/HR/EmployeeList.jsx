@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import api from "../../../services/api";
 import AffiliationRow from "../../../components/AffiliationRow";
 
-/* ===== Loader (ADDED) ===== */
 function PageLoader({ text = "Loading..." }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[40vh] gap-3">
@@ -12,7 +11,6 @@ function PageLoader({ text = "Loading..." }) {
     </div>
   );
 }
-/* ========================= */
 
 const EmployeeList = () => {
   const [items, setItems] = useState([]);
@@ -49,11 +47,9 @@ const EmployeeList = () => {
     load(1);
   };
 
-  /* ===== PAGE LOAD → LOADER ===== */
   if (loading) {
     return <PageLoader text="Loading affiliated employees..." />;
   }
-  /* =============================== */
 
   return (
     <div>
