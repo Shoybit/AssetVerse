@@ -2,30 +2,55 @@ import React, { useEffect, useState, useContext } from "react";
 import api from "../../services/api";
 import AuthContext from "../../context/AuthContext";
 
+/* -------- Loader -------- */
+function PageLoader({ text = "Loading payment history..." }) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+      <p className="text-sm text-gray-600">{text}</p>
+    </div>
+  );
+}
+
 export default function PaymentHistory() {
   const { user } = useContext(AuthContext);
+
   const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!user?._id) return;
+    if (!user?._id) {
+      setPageLoading(false);
+      return;
+    }
 
     const load = async () => {
+      setLoading(true);
       try {
         const res = await api.get("/payments/history");
-        setHistory(res.data.items || []);
+        setHistory(res.data?.items || []);
       } catch (err) {
         console.error("History load error:", err);
       } finally {
-        setLoading(false); 
+        setLoading(false);
+        setPageLoading(false);
       }
     };
 
     load();
   }, [user]);
 
-  if (!user) return <div>Please login to view payment history.</div>;
+  /* -------- Loaders -------- */
+  if (pageLoading || loading) {
+    return <PageLoader text="Loading payment history..." />;
+  }
 
+  if (!user) {
+    return <div>Please login to view payment history.</div>;
+  }
+
+  /* -------- UI -------- */
   return (
     <div>
       <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -35,9 +60,7 @@ export default function PaymentHistory() {
         </span>
       </h2>
 
-      {loading ? (
-        <div className="py-6 text-center">Loading…</div>
-      ) : history.length === 0 ? (
+      {history.length === 0 ? (
         <div className="py-6 text-gray-500">No payments found.</div>
       ) : (
         <div className="overflow-x-auto">
@@ -57,9 +80,15 @@ export default function PaymentHistory() {
                   <td>{p.packageName}</td>
                   <td>${p.amount}</td>
                   <td>{p.status}</td>
-                  <td>{new Date(p.paymentDate).toLocaleString()}</td>
+                  <td>
+                    {p.paymentDate
+                      ? new Date(p.paymentDate).toLocaleString()
+                      : "—"}
+                  </td>
                   <td className="text-blue-500">
-                    {p.transactionId?.slice(0, 10)}…
+                    {p.transactionId
+                      ? `${p.transactionId.slice(0, 10)}…`
+                      : "—"}
                   </td>
                 </tr>
               ))}

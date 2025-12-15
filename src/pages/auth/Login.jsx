@@ -65,7 +65,7 @@ if (pageLoading) {
 }
 
 if (loading) {
-  return <PageLoader text="Signing you in..." />;
+  return <PageLoader text="Login you in..." />;
 }
 
 
