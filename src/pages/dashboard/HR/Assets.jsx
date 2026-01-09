@@ -88,7 +88,7 @@ export default function AssetList() {
     } catch (err) {
       console.error("Load assets failed:", err);
       try {
-        const res2 = await api.get("/hr/assets");
+        const res2 = await api.get("/assets");
         setRawResponse(res2.data);
         setAssets(normalizeToArray(res2.data));
       } catch (err2) {

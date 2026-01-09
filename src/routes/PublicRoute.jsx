@@ -7,8 +7,10 @@ const PublicRoute = ({ redirectTo = "/" }) => {
   const { user } = useContext(AuthContext);
   // if logged in, redirect to an appropriate page by role
   if (user) {
-    if (user.role === "hr") return <Navigate to="/hr/assets" replace />;
-    return <Navigate to="/my-assets" replace />;
+    if (user?.role === "hr") {
+  return <Navigate to="/dashboard" replace />;
+}
+   return <Navigate to="/dashboard" replace />;
   }
   return <Outlet />;
 }

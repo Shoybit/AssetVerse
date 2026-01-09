@@ -65,7 +65,7 @@ export default function RegisterEmployee() {
         profileImage: data.profileImage || null,
       };
       await registerApi(payload);
-      navigate("/my-assets");
+      navigate("/dashboard");
     } catch (err) {
       setServerError(
         err?.response?.data?.message || err.message || "Registration failed"

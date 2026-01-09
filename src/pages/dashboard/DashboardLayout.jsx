@@ -42,7 +42,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-auto lg:ml-72">
+        <main className="flex-1 overflow-auto ">
           <div className="p-4 lg:p-6">
             <Outlet />
           </div>

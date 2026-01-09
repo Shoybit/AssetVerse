@@ -85,7 +85,7 @@ export default function RegisterHR() {
         currentEmployees: 0,
       };
       await registerApi(payload);
-      navigate("/hr/assets");
+      navigate("/dashboard");
     } catch (err) {
       setServerError(
         err?.response?.data?.message || err.message || "Registration failed"

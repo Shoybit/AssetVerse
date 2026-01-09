@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 import { useAuth } from "../../context/AuthContext";
 import {
@@ -31,7 +31,8 @@ const Sidebar = () => {
   return (
    <aside className="w-full lg:w-72 min-h-screen lg:h-screen flex flex-col bg-linear-to-b from-base-100 to-base-200 border-r border-base-300">
       <div className="p-6 border-b border-base-300">
-        <div className="flex flex-col lg:flex-row items-center gap-3">
+      <Link to="/">
+                <div className="flex flex-col lg:flex-row items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
             <HiOutlineBuildingOffice className="w-6 h-6 text-primary" />
           </div>
@@ -40,6 +41,7 @@ const Sidebar = () => {
             <p className="text-sm text-base-content/70">Management System</p>
           </div>
         </div>
+      </Link>
 
 
         <div className="mt-6 p-4 rounded-xl bg-base-200">
@@ -162,6 +164,21 @@ const Sidebar = () => {
               <HiOutlineArchive className="w-5 h-5" />
               <span>Assets</span>
             </NavLink>
+
+                 <NavLink
+              to="/dashboard/hr/add-asset"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? "bg-primary text-primary-content shadow-sm"
+                    : "hover:bg-base-300"
+                }`
+              }
+            >
+              <HiOutlineCube className="w-5 h-5" />
+              <span>Add Asset</span>
+            </NavLink>
+
             
             <NavLink 
               to="/dashboard/hr/employees"
@@ -204,6 +221,21 @@ const Sidebar = () => {
               <HiOutlineCreditCard className="w-5 h-5" />
               <span>Payments</span>
             </NavLink>
+
+                          <NavLink 
+              to="/dashboard/my-profile"
+              className={({ isActive }) => 
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive 
+                    ? 'bg-primary text-primary-content shadow-sm' 
+                    : 'hover:bg-base-300'
+                }`
+              }
+            >
+              <HiOutlineUser className="w-5 h-5" />
+              <span>Profile</span>
+            </NavLink>
+
           </div>
         )}
 

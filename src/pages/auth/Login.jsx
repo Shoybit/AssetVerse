@@ -53,8 +53,7 @@ const [loading, setLoading] = useState(false);
         return;
       }
 
-      if (role === "hr") navigate("/hr/assets");
-      else navigate("/my-assets");
+      navigate("/dashboard");
     } catch (err) {
       console.error("Login error", err);
       const msg = err?.response?.data?.message || err.message || "Login failed";
