@@ -1,7 +1,7 @@
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 
 import React from "react";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 
 import PrivateRoute from "../routes/PrivateRoute";
 import PublicRoute from "../routes/PublicRoute";
@@ -52,32 +52,37 @@ const routes = [
     path: "/dashboard",
     element: <PrivateRoute allowedRoles={["employee", "hr"]} />,
     children: [
-      {
-        path: "", // ⭐ FIX 1
-        element: <DashboardLayout/>,
-        children: [
-          // ---------- EMPLOYEE ----------
-          { path: "my-profile", element: <MyProfile/> },
-          { path: "my-assets", element: <MyAssets/> },
-          { path: "request-asset", element: <RequestAsset /> },
-          { path: "my-team", element: <MyTeam /> },
+{
+  path: "",
+  element: <DashboardLayout />,
+  children: [
+    // ⭐⭐ DEFAULT DASHBOARD PAGE ⭐⭐
+    { index: true, element: <Navigate to="my-assets" replace /> },
 
-          // ---------- HR ----------
-          {
-            path: "hr", // ⭐ FIX 2 (clean structure)
-            element: <PrivateRoute allowedRoles={["hr"]} />,
-            children: [
-              { path: "dashboard", element: <HRDashboard /> },
-              { path: "assets", element: <Assets /> },
-              { path: "requests", element: <Requests /> },
-              { path: "employees", element: <EmployeeList /> },
-              { path: "add-asset", element: <AddAssetForm /> },
-              { path: "packages", element: <Packages /> },
-              { path: "payments", element: <PaymentHistory/> },
-            ],
-          },
-        ],
-      },
+    // ---------- EMPLOYEE ----------
+    { path: "my-profile", element: <MyProfile /> },
+    { path: "my-assets", element: <MyAssets /> },
+    { path: "request-asset", element: <RequestAsset /> },
+    { path: "my-team", element: <MyTeam /> },
+
+    // ---------- HR ----------
+    {
+      path: "hr",
+      element: <PrivateRoute allowedRoles={["hr"]} />,
+      children: [
+        { index: true, element: <Navigate to="dashboard" replace /> },
+        { path: "dashboard", element: <HRDashboard /> },
+        { path: "assets", element: <Assets /> },
+        { path: "requests", element: <Requests /> },
+        { path: "employees", element: <EmployeeList /> },
+        { path: "add-asset", element: <AddAssetForm /> },
+        { path: "packages", element: <Packages /> },
+        { path: "payments", element: <PaymentHistory /> },
+      ],
+    },
+  ],
+}
+,
     ],
   },
 
