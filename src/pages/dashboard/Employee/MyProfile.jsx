@@ -167,7 +167,7 @@ export default function MyProfile() {
           <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
             <div className="text-center">
               <div className="relative inline-block mb-6">
-                <div className="w-48 h-48 rounded-full border-4 border-white shadow-lg overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
+                <div className="w-48 h-48 rounded-full border-4 border-white shadow-lg overflow-hidden bg-linear-to-br from-blue-50 to-indigo-50">
                   <img
                     src={preview || "/avatar.png"}
                     alt="Profile"
