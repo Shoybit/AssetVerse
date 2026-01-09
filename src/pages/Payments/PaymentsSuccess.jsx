@@ -70,7 +70,7 @@ export default function PaymentsSuccess() {
       </div>
 
       <a
-        href="/hr/payments"
+        href="dashboard/hr/payments"
         className="inline-block mt-6 bg-primary text-white px-6 py-3 rounded-lg shadow hover:opacity-80 transition"
       >
         Payment History

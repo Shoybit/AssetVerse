@@ -227,7 +227,8 @@ export default function PackagesSection() {
 
                     {/* CTA Button */}
                     <Link
-                      to="/hr/packages"
+                      to="/dashboard/hr/packages
+"
                       className={`btn btn-lg w-full rounded-xl group ${
                         isPopular 
                           ? 'btn-primary shadow-lg hover:shadow-xl' 
