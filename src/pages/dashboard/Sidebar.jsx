@@ -29,9 +29,9 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="w-72 min-h-screen flex flex-col bg-linear-to-b from-base-100 to-base-200 border-r border-base-300">
+   <aside className="w-full lg:w-72 min-h-screen lg:h-screen flex flex-col bg-linear-to-b from-base-100 to-base-200 border-r border-base-300">
       <div className="p-6 border-b border-base-300">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col lg:flex-row items-center gap-3">
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
             <HiOutlineBuildingOffice className="w-6 h-6 text-primary" />
           </div>
@@ -40,7 +40,8 @@ const Sidebar = () => {
             <p className="text-sm text-base-content/70">Management System</p>
           </div>
         </div>
-        
+
+
         <div className="mt-6 p-4 rounded-xl bg-base-200">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full bg-linear-to-br from-primary to-secondary flex items-center justify-center text-white font-semibold">
@@ -160,9 +161,6 @@ const Sidebar = () => {
             >
               <HiOutlineArchive className="w-5 h-5" />
               <span>Assets</span>
-              <span className="ml-auto px-2 py-1 text-xs rounded-full bg-primary/20 text-primary">
-                42
-              </span>
             </NavLink>
             
             <NavLink 
@@ -191,9 +189,6 @@ const Sidebar = () => {
             >
               <HiOutlineBell className="w-5 h-5" />
               <span>Requests</span>
-              <span className="ml-auto px-2 py-1 text-xs rounded-full bg-error/20 text-error">
-                5
-              </span>
             </NavLink>
             
             <NavLink 
