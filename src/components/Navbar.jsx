@@ -114,10 +114,11 @@ export default function Navbar() {
             <>
               <ul className="menu menu-horizontal gap-2">
                 <li><NavLink to="/" className={activeClass}>Home</NavLink></li>
-                <li><NavLink to="/dashboard" className={activeClass}>Dashboard</NavLink></li>
-                <li><NavLink to="/dashboard/my-assets" className={activeClass}>My Assets</NavLink></li>
+                <li><NavLink to="/about" className={activeClass}>About</NavLink></li>
                 <li><NavLink to="/blog" className={activeClass}>Blog</NavLink></li>
                 <li><NavLink to="/support" className={activeClass}>Support</NavLink></li>
+               <li><NavLink to="/dashboard" className={activeClass}>Dashboard</NavLink></li>
+
               </ul>
 
               {/* Profile dropdown */}

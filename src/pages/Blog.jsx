@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { 
   CalendarDays, 
@@ -10,6 +10,7 @@ import {
   Settings,
   Sparkles
 } from "lucide-react";
+import Loader from "../components/Loader";
 
 const blogs = [
   {
@@ -87,9 +88,23 @@ const blogs = [
 ];
 
 const Blog = () => {
+    const [loading, setLoading] = useState(true);
   useEffect(() => {
     document.title = "Blog | AssetVerse";
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <Loader/>;
+  }
+
 
   return (
     <div className="min-h-screen bg-linear-to-b from-base-100 to-base-200">

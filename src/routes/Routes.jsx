@@ -35,6 +35,7 @@ import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
 
 import { useAuth } from "../context/AuthContext";
 import Support from "../pages/dashboard/Support";
+import About from "../pages/About";
 
 const DashboardRedirect = () => {
   const { user } = useAuth();
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
 
       { path: "support", element: <Support /> },
+      { path: "about", element: <About /> },
 
       { path: "payments/success", element: <PaymentsSuccess /> },
 

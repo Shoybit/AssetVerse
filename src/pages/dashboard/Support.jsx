@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Mail, 
   Phone, 
@@ -15,8 +15,25 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
+import Loader from "../../components/Loader";
 
 const Support = () => {
+
+    const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+  document.title = "Support | AssetVerse ";
+}, []);
+
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -113,6 +130,10 @@ const Support = () => {
     { value: "high", label: "High", color: "badge-warning" },
     { value: "urgent", label: "Urgent", color: "badge-error" }
   ];
+
+    if (loading) {
+    return <Loader/>;
+  }
 
   return (
     <div className="min-h-screen ">
