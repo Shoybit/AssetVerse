@@ -10,6 +10,7 @@ import NotFound from "../pages/NotFound";
 import Login from "../pages/auth/Login";
 import RegisterHR from "../pages/auth/RegisterHR";
 import RegisterEmployee from "../pages/auth/RegisterEmployee";
+import Blog from "../pages/Blog";
 
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 
@@ -18,6 +19,7 @@ import MyAssets from "../pages/dashboard/Employee/MyAssets";
 import MyTeam from "../pages/dashboard/Employee/MyTeam";
 import RequestAsset from "../pages/dashboard/Employee/RequestAsset";
 import MyProfile from "../pages/dashboard/Employee/MyProfile";
+import MyRequestedAssets from "../pages/dashboard/Employee/MyRequestedAssets";
 
 // ===== HR =====
 import HRDashboard from "../pages/dashboard/HR/HRDashboard";
@@ -31,9 +33,7 @@ import Packages from "../pages/Payments/Packages";
 import PaymentHistory from "../pages/Payments/PaymentHistory";
 import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
 
-// ===== DASHBOARD REDIRECT =====
 import { useAuth } from "../context/AuthContext";
-import MyRequestedAssets from "../pages/dashboard/Employee/MyRequestedAssets";
 
 const DashboardRedirect = () => {
   const { user } = useAuth();
@@ -54,6 +54,10 @@ const router = createBrowserRouter([
     element: <NavbarLayout />,
     children: [
       { index: true, element: <Home /> },
+
+      // ✅ BLOG IS PUBLIC (FIXED)
+      { path: "blog", element: <Blog /> },
+
       { path: "payments/success", element: <PaymentsSuccess /> },
 
       {
@@ -75,18 +79,14 @@ const router = createBrowserRouter([
       {
         element: <DashboardLayout />,
         children: [
-          { index: true, element: <DashboardRedirect/> },
+          { index: true, element: <DashboardRedirect /> },
 
           // ===== EMPLOYEE =====
           { path: "my-assets", element: <MyAssets /> },
           { path: "my-team", element: <MyTeam /> },
           { path: "request-asset", element: <RequestAsset /> },
           { path: "my-profile", element: <MyProfile /> },
-          { path: "my-requests", element: <MyRequestedAssets />,
-
-          },
-
-          
+          { path: "my-requests", element: <MyRequestedAssets /> },
 
           // ===== HR =====
           {
