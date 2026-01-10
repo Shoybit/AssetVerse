@@ -34,6 +34,7 @@ import PaymentHistory from "../pages/Payments/PaymentHistory";
 import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
 
 import { useAuth } from "../context/AuthContext";
+import Support from "../pages/dashboard/Support";
 
 const DashboardRedirect = () => {
   const { user } = useAuth();
@@ -57,6 +58,8 @@ const router = createBrowserRouter([
 
       // ✅ BLOG IS PUBLIC (FIXED)
       { path: "blog", element: <Blog /> },
+
+      { path: "support", element: <Support /> },
 
       { path: "payments/success", element: <PaymentsSuccess /> },
 

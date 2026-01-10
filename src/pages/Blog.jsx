@@ -113,21 +113,6 @@ const Blog = () => {
             HR workflows, and organizational productivity.
           </p>
           
-          {/* Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mt-10">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary">50+</div>
-              <div className="text-sm text-base-content/60">Articles Published</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary">10K+</div>
-              <div className="text-sm text-base-content/60">Monthly Readers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-accent">15+</div>
-              <div className="text-sm text-base-content/60">Expert Writers</div>
-            </div>
-          </div>
         </div>
 
         {/* Featured Article */}
@@ -184,10 +169,6 @@ const Blog = () => {
         <div>
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-3xl font-bold">Latest Articles</h2>
-            <div className="flex gap-2">
-              <button className="btn btn-sm btn-outline">All Categories</button>
-              <button className="btn btn-sm btn-primary">Subscribe</button>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
