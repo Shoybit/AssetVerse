@@ -33,6 +33,7 @@ import PaymentsSuccess from "../pages/Payments/PaymentsSuccess";
 
 // ===== DASHBOARD REDIRECT =====
 import { useAuth } from "../context/AuthContext";
+import MyRequestedAssets from "../pages/dashboard/Employee/MyRequestedAssets";
 
 const DashboardRedirect = () => {
   const { user } = useAuth();
@@ -81,6 +82,11 @@ const router = createBrowserRouter([
           { path: "my-team", element: <MyTeam /> },
           { path: "request-asset", element: <RequestAsset /> },
           { path: "my-profile", element: <MyProfile /> },
+          { path: "my-requests", element: <MyRequestedAssets />,
+
+          },
+
+          
 
           // ===== HR =====
           {

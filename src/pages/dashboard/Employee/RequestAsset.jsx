@@ -169,7 +169,7 @@ const RequestAsset = () => {
               {filteredAssets.map((asset) => (
                 <div key={asset._id} className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden">
                   {/* Image */}
-                  <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+                  <div className="h-48 bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
                     {asset.productImage ? (
                       <img
                         src={asset.productImage}

@@ -13,7 +13,8 @@ import {
   HiOutlineArchive,
   
   HiOutlineBell,
-  HiOutlineQuestionMarkCircle
+  HiOutlineQuestionMarkCircle,
+  HiOutlineInbox
 } from "react-icons/hi";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 
@@ -113,6 +114,21 @@ const Sidebar = () => {
                 New
               </span>
             </NavLink>
+
+            <NavLink 
+              to="/dashboard/my-requests"
+              className={({ isActive }) => 
+                `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  isActive 
+                    ? 'bg-primary text-primary-content shadow-sm' 
+                    : 'hover:bg-base-300'
+                }`
+              }
+            >
+              <HiOutlineInbox className="w-5 h-5" />
+              <span>My Requests</span>
+            </NavLink>
+
             
             <NavLink 
               to="/dashboard/my-profile"

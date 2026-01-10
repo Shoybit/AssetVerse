@@ -7,8 +7,9 @@ const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="h-screen overflow-hidden bg-base-100">
 
+      {/* ===== Mobile Top Bar ===== */}
       <div className="lg:hidden h-14 flex items-center px-4 border-b border-base-300">
         <button
           onClick={() => setIsSidebarOpen(true)}
@@ -19,9 +20,9 @@ const DashboardLayout = () => {
         <h2 className="ml-4 font-semibold text-lg">Dashboard</h2>
       </div>
 
-      <div className="flex min-h-[calc(100vh-3.5rem)] lg:min-h-screen">
+      <div className="flex h-[calc(100vh-3.5rem)] lg:h-screen">
 
-        {/* Overlay (mobile only) */}
+        {/* ===== Overlay (mobile only) ===== */}
         {isSidebarOpen && (
           <div
             className="lg:hidden fixed inset-0 bg-black/50 z-40"
@@ -29,20 +30,23 @@ const DashboardLayout = () => {
           />
         )}
 
-        {/* Sidebar */}
-        <div
+        {/* ===== Sidebar (FIXED) ===== */}
+        <aside
           className={`
             fixed lg:static inset-y-0 left-0 z-50
+            w-72 h-screen
+            bg-base-100
             transform transition-transform duration-300
             ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
             lg:translate-x-0
+            overflow-hidden
           `}
         >
           <Sidebar />
-        </div>
+        </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 overflow-auto ">
+        {/* ===== Main Content (SCROLL ONLY HERE) ===== */}
+        <main className="flex-1 overflow-y-auto">
           <div className="p-4 lg:p-6">
             <Outlet />
           </div>
