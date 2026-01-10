@@ -62,6 +62,27 @@ const [loading, setLoading] = useState(false);
       setLoading(false);
     }
   };
+
+  //  DEMO LOGIN
+  const handleDemoLogin = async (role) => {
+    try {
+      setLoading(true);
+      setServerError(null);
+
+      if (role === "employee") {
+        await login("sh@gmail.com", "Ss1234@");
+      } else {
+        await login("s@gmail.com", "Ss1234@");
+      }
+
+      navigate("/dashboard");
+    } catch {
+      setServerError("Demo login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+  
 if (pageLoading) {
   return <PageLoader text="Preparing login screen..." />;
 }
@@ -215,6 +236,23 @@ if (loading) {
               )}
             </button>
           </form>
+
+                    {/* DEMO BUTTONS */}
+          <div className="mt-6 space-y-3">
+            <button
+              onClick={() => handleDemoLogin("employee")}
+              className="btn btn-outline btn-primary w-full"
+            >
+              Demo Employee Login
+            </button>
+
+            <button
+              onClick={() => handleDemoLogin("hr")}
+              className="btn btn-outline btn-secondary w-full"
+            >
+               Demo HR Login
+            </button>
+          </div>
 
           {/* Divider */}
           <div className="mt-8">
